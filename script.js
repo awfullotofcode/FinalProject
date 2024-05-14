@@ -11,7 +11,7 @@ const ninjaImages = {
 // game properties
 const gameProperties = {
     gravity: 9.8,
-}
+};
 // ninja properties
 const ninja = {
     x: canvas.width / 2 - 25, // Initial x position at the center of the canvas
@@ -34,7 +34,7 @@ const ninja = {
 const gameEnvironment = {
     floorY: canvas.height-10,
     floorHeight: 10,
-}
+};
 
 
 // set source for each image
