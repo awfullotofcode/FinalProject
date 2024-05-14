@@ -1,12 +1,26 @@
 // get canvas and context
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
+
 // load ninja images
 const ninjaImages = {
     still: new Image(),
     right: [],
     left: [],
-};
+}
+// set source for each image
+ninjaImages.still.src = 'ninja-animations/ninja-still.png';
+for (let i = 1; i < 5; i++) {
+    // loads right animations onto right array
+    const rightImg = new Image();
+    rightImg.src = `ninja-animations/ninja-right${i}.png`;
+    ninjaImages.right.push(rightImg);
+
+    const leftImg = new Image();
+    leftImg.src = `ninja-animations/ninja-left${i}.png`;
+    ninjaImages.left.push(leftImg);
+
+}
 
 // game properties
 const gameProperties = {
@@ -28,29 +42,12 @@ const ninja = {
     direction: 'still', // initial direction
     movingLeft: false,
     movingRight: false,
-};
-
+}
 // game environment properties
 const gameEnvironment = {
     floorY: canvas.height-10,
     floorHeight: 10,
 }
-
-
-// set source for each image
-ninjaImages.still.src = 'ninja-animations/ninja-still.png';
-for (let i = 1; i < 5; i++) {
-    // loads right animations onto right array
-    const rightImg = new Image();
-    rightImg.src = `ninja-animations/ninja-right${i}.png`;
-    ninjaImages.right.push(rightImg);
-
-    const leftImg = new Image();
-    leftImg.src = `ninja-animations/ninja-left${i}.png`;
-    ninjaImages.left.push(leftImg);
-
-}
-
 
 // keyboard movement
 document.addEventListener('keydown', (event) => {
