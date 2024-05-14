@@ -22,7 +22,7 @@ const ninja = {
     speed: 5, // movement speed
     canJump: true,
     jumpStart: 0,
-    jumpHeight: 100, // maximum height of the jump
+    jumpHeight: 120, // maximum height of the jump
     jumpSpeed: 10, // speed of the jump
     jumping: false, // jumping state
     direction: 'still', // initial direction
