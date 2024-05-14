@@ -1,6 +1,7 @@
 // get canvas and context
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
+let currentFrameIndex = 0;
 
 // load ninja images
 const ninjaImages = {
@@ -65,7 +66,6 @@ document.addEventListener('keydown', (event) => {
     }
 
 });
-
 // when key released
 document.addEventListener('keyup', (event) => {
     if (event.key === 'ArrowLeft' || event.key === 'a' || event.key === 'A') {
@@ -74,6 +74,21 @@ document.addEventListener('keyup', (event) => {
         ninja.movingRight = false;
     }
 });
+
+function boundaries() {
+    // left/right bounds
+    if (ninja.x < 0) {
+        ninja.x = 0;
+    } else if (ninja.x + ninja.width > canvas.width) {
+        ninja.x = canvas.width - ninja.width;
+    }
+    // up/down bounds
+    if (ninja.y < 0) { // Ensure ninja cannot go above the top of the canvas
+        ninja.y = 0;
+    } else if (ninja.y + ninja.height > gameEnvironment.floorY) { // Ensure ninja cannot go below the floor
+        ninja.y = gameEnvironment.floorY - ninja.height;
+    }
+}
 
 function movement() {
     // movement
@@ -105,33 +120,27 @@ function movement() {
         }
     }
 }
+
 // update game logic
 function update() {
 
     movement();
-
-    // left/right bounds
-    if (ninja.x < 0) {
-        ninja.x = 0;
-    } else if (ninja.x + ninja.width > canvas.width) {
-        ninja.x = canvas.width - ninja.width;
-    }
-    // up/down bounds
-    if (ninja.y < 0) { // Ensure ninja cannot go above the top of the canvas
-        ninja.y = 0;
-    } else if (ninja.y + ninja.height > gameEnvironment.floorY) { // Ensure ninja cannot go below the floor
-        ninja.y = gameEnvironment.floorY - ninja.height;
-    }
-
+    boundaries();
 
 }
 
-let currentFrameIndex = 0;
+function drawNinja() {
+    // Draw the current ninja image at the current position
+    ctx.drawImage(currentNinjaImg, ninja.x, ninja.y, ninja.width, ninja.height);
+    // Increment the frame index for the next iteration
+    currentFrameIndex++;
+    // Reset the frame index to 0 when it reaches the last frame
+    if (currentFrameIndex >= 4) {
+        currentFrameIndex = 0;
+    }
+}
 // draw game
-function draw() {
-    // clear canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+function drawFloor() {
     // draw floor
     ctx.fillStyle = 'grey';
     ctx.fillRect(0, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
@@ -146,16 +155,15 @@ function draw() {
         // If the ninja is not moving, use the still image
         currentNinjaImg = ninjaImages.still;
     }
+}
+function draw() {
+    // clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Draw the current ninja image at the current position
-    ctx.drawImage(currentNinjaImg, ninja.x, ninja.y, ninja.width, ninja.height);
+    drawFloor();
 
-    // Increment the frame index for the next iteration
-    currentFrameIndex++;
-    // Reset the frame index to 0 when it reaches the last frame
-    if (currentFrameIndex >= 4) {
-        currentFrameIndex = 0;
-    }
+    drawNinja();
+
 
 }
 
