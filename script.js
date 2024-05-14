@@ -32,7 +32,8 @@ const ninja = {
 
 // game environment properties
 const gameEnvironment = {
-    floorY: canvas.height-10
+    floorY: canvas.height-10,
+    floorHeight: 10
 }
 // floor properties
 const floor = {
