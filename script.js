@@ -202,7 +202,7 @@ function draw() {
 
 // game loop
 function gameLoop() {
-    updatePlatforms
+    updatePlatforms();
 
     update();
 
