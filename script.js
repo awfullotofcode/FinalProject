@@ -40,7 +40,7 @@ const gameEnvironment = {
 // set source for each image
 ninjaImages.still.src = 'ninja-animations/ninja-still.png';
 for (let i = 1; i < 5; i++) {
-    // loads right animations onto right array
+    // loads right animations onto arrays
     const rightImg = new Image();
     rightImg.src = `ninja-animations/ninja-right${i}.png`;
     ninjaImages.right.push(rightImg);
@@ -93,7 +93,6 @@ function update() {
 
         // Check if the ninja has reached the maximum jump height
         if (ninja.y <= ninja.jumpStart - ninja.jumpHeight) {
-            // If so, stop jumping and start falling
             ninja.jumping = false;
         }
     } else {
