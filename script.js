@@ -47,29 +47,8 @@ const ninja = {
 const gameEnvironment = {
     floorY: canvas.height-10,
     floorHeight: 10,
-<<<<<<< HEAD
-};
-
-
-// set source for each image
-ninjaImages.still.src = 'ninja-animations/ninja-still.png';
-for (let i = 1; i < 5; i++) {
-    // loads right animations onto arrays
-    const rightImg = new Image();
-    rightImg.src = `ninja-animations/ninja-right${i}.png`;
-    ninjaImages.right.push(rightImg);
-
-    const leftImg = new Image();
-    leftImg.src = `ninja-animations/ninja-left${i}.png`;
-    ninjaImages.left.push(leftImg);
-
 }
 
-
-=======
-}
-
->>>>>>> platform-update
 // keyboard movement
 document.addEventListener('keydown', (event) => {
 
@@ -96,10 +75,6 @@ document.addEventListener('keyup', (event) => {
     }
 });
 
-<<<<<<< HEAD
-// update game logic
-function update() {
-=======
 function boundaries() {
     // left/right bounds
     if (ninja.x < 0) {
@@ -116,7 +91,6 @@ function boundaries() {
 }
 
 function movement() {
->>>>>>> platform-update
     // movement
     if (ninja.movingLeft) {
         ninja.x -= ninja.speed;
@@ -150,15 +124,7 @@ function update() {
 }
 
 let currentFrameIndex = 0;
-// draw game
-function draw() {
-    // clear canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // draw floor
-    ctx.fillStyle = 'grey';
-    ctx.fillRect(0, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
-
+function drawNinja () {
     let currentNinjaImg; // Variable to hold the current ninja image
 
     if (ninja.direction === 'left') {
@@ -179,6 +145,16 @@ function draw() {
     if (currentFrameIndex >= 4) {
         currentFrameIndex = 0;
     }
+}
+// draw game
+function draw() {
+    // clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // draw floor
+    ctx.fillStyle = 'grey';
+    ctx.fillRect(0, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
+    drawNinja();
 
 }
 
@@ -191,9 +167,5 @@ function gameLoop() {
 
     requestAnimationFrame(gameLoop);
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> platform-update
 
 requestAnimationFrame(gameLoop);
