@@ -88,6 +88,19 @@ function generatePlatform() {
     const platformY = -platformHeight; // Spawn platforms above the screen
     gameEnvironment.platforms.push({ x: platformX, y: platformY, width: platformWidth, height: platformHeight });
 }
+// Function to generate platforms at the top of the canvas
+function generateTopPlatforms() {
+    const numberOfPlatforms = 5; // Adjust as needed
+    for (let i = 0; i < numberOfPlatforms; i++) {
+        generatePlatform();
+    }
+}
+function updateFloor() {
+    // Start scrolling floor when player reaches near the top
+    if (ninja.y < canvas.height / 4) {
+        gameEnvironment.floorY += gameProperties.platformSpeed;
+    }
+}
 // Function to update platform positions
 function updatePlatforms() {
     gameEnvironment.platforms.forEach(platform => {
