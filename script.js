@@ -79,7 +79,7 @@ document.addEventListener('keyup', (event) => {
 });
 
 // moving platforms
-
+function 
 // update game logic
 function update() {
     // movement
