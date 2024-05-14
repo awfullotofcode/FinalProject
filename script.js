@@ -154,6 +154,8 @@ function draw() {
     // draw floor
     ctx.fillStyle = 'grey';
     ctx.fillRect(0, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
+
+    // draw platforms
     drawNinja();
 
 }
