@@ -2,6 +2,8 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
+// gravity variable
+let gravity = 9.8;
 // load ninja images
 const ninjaImages = {
     still: new Image(),
@@ -28,7 +30,11 @@ const ninja = {
     y: canvas.height- 60, //inital y
     width: 50,
     height: 50,
-    speed: 10, // movement speed
+    speed: 5, // movement speed
+    jumpStart: 0,
+    jumpHeight: 100, // maximum height of the jump
+    jumpSpeed: 5, // speed of the jump
+    jumping: false, // jumping state
     direction: 'still' // initial direction
 };
 // floor properties
@@ -38,7 +44,7 @@ const floor = {
 };
 
 
-// left and right keyboard movement
+// keyboard movement
 document.addEventListener('keydown', (event) => {
 
     if (event.key === 'ArrowLeft') {
@@ -47,19 +53,36 @@ document.addEventListener('keydown', (event) => {
     } else if (event.key === 'ArrowRight') {
         ninja.x += ninja.speed;
         ninja.direction = 'right';
-    }
+    } 
+
 });
 
+// when still
+document.addEventListener('keyup', (event) => {
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        ninja.direction = 'still';
+    }
 
+});
 
 // update game logic
 function update() {
+
     // character boundaries
+    // left/right
     if (ninja.x < 0) {
         ninja.x = 0;
     } else if (ninja.x + ninja.width > canvas.width) {
         ninja.x = canvas.width - ninja.width;
     }
+    // up/down
+    if (ninja.y < 0) { // Ensure ninja cannot go above the top of the canvas
+        ninja.y = 0;
+    } else if (ninja.y + ninja.height > floor.y) { // Ensure ninja cannot go below the floor
+        ninja.y = floor.y - ninja.height;
+    }
+
+
 }
 
 let currentFrameIndex = 0;
@@ -78,7 +101,7 @@ function draw() {
         currentNinjaImg = ninjaImages.left[currentFrameIndex]; // Get the current left-facing ninja image
     } else if (ninja.direction === 'right') {
         currentNinjaImg = ninjaImages.right[currentFrameIndex]; // Get the current right-facing ninja image
-    } else {
+    } else if (ninja.direction === 'still') {
         // If the ninja is not moving, use the still image
         currentNinjaImg = ninjaImages.still;
     }
