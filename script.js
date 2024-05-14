@@ -36,7 +36,7 @@ const ninja = {
     speed: 5, // movement speed
     canJump: true,
     jumpStart: 0,
-    jumpHeight: 100, // maximum height of the jump
+    jumpHeight: 120, // maximum height of the jump
     jumpSpeed: 10, // speed of the jump
     jumping: false, // jumping state
     direction: 'still', // initial direction
@@ -47,8 +47,29 @@ const ninja = {
 const gameEnvironment = {
     floorY: canvas.height-10,
     floorHeight: 10,
+<<<<<<< HEAD
+};
+
+
+// set source for each image
+ninjaImages.still.src = 'ninja-animations/ninja-still.png';
+for (let i = 1; i < 5; i++) {
+    // loads right animations onto arrays
+    const rightImg = new Image();
+    rightImg.src = `ninja-animations/ninja-right${i}.png`;
+    ninjaImages.right.push(rightImg);
+
+    const leftImg = new Image();
+    leftImg.src = `ninja-animations/ninja-left${i}.png`;
+    ninjaImages.left.push(leftImg);
+
 }
 
+
+=======
+}
+
+>>>>>>> platform-update
 // keyboard movement
 document.addEventListener('keydown', (event) => {
 
@@ -75,6 +96,10 @@ document.addEventListener('keyup', (event) => {
     }
 });
 
+<<<<<<< HEAD
+// update game logic
+function update() {
+=======
 function boundaries() {
     // left/right bounds
     if (ninja.x < 0) {
@@ -91,6 +116,7 @@ function boundaries() {
 }
 
 function movement() {
+>>>>>>> platform-update
     // movement
     if (ninja.movingLeft) {
         ninja.x -= ninja.speed;
@@ -100,18 +126,15 @@ function movement() {
     }
     // Check if ninja is currently jumping
     if (ninja.jumping) {
-        // Calculate the new vertical position based on jump speed
         ninja.y -= ninja.jumpSpeed;
 
         // Check if the ninja has reached the maximum jump height
         if (ninja.y <= ninja.jumpStart - ninja.jumpHeight) {
-            // If so, stop jumping and start falling
             ninja.jumping = false;
         }
     } else {
-        // If not jumping, apply gravity
+        // If not jumping, apply gravity until hit floor
         if (ninja.y < gameEnvironment.floorY - ninja.height) {
-            // Apply gravity until the ninja reaches the floor
             ninja.y += gameProperties.gravity;
         } else {
             // Once the ninja reaches the floor, stop its vertical movement
@@ -168,6 +191,9 @@ function gameLoop() {
 
     requestAnimationFrame(gameLoop);
 }
+<<<<<<< HEAD
+=======
 
+>>>>>>> platform-update
 
 requestAnimationFrame(gameLoop);
