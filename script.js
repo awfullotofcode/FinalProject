@@ -104,12 +104,12 @@ function update() {
         }
     } else {
         // If not jumping, apply gravity
-        if (ninja.y < floor.y - ninja.height) {
+        if (ninja.y < gameEnvironment.floorY - ninja.height) {
             // Apply gravity until the ninja reaches the floor
             ninja.y += gameProperties.gravity;
         } else {
             // Once the ninja reaches the floor, stop its vertical movement
-            ninja.y = floor.y - ninja.height;
+            ninja.y = gameEnvironment.floorY - ninja.height;
             ninja.canJump = true;
         }
     }
@@ -123,8 +123,8 @@ function update() {
     // up/down bounds
     if (ninja.y < 0) { // Ensure ninja cannot go above the top of the canvas
         ninja.y = 0;
-    } else if (ninja.y + ninja.height > floor.y) { // Ensure ninja cannot go below the floor
-        ninja.y = floor.y - ninja.height;
+    } else if (ninja.y + ninja.height > gameEnvironment.floorY) { // Ensure ninja cannot go below the floor
+        ninja.y = gameEnvironment.floorY - ninja.height;
     }
 
 
@@ -138,7 +138,7 @@ function draw() {
 
     // draw floor
     ctx.fillStyle = 'grey';
-    ctx.fillRect(0, floor.y, canvas.width, floor.height);
+    ctx.fillRect(0, gameEnvironment.floorY, canvas.width, floor.height);
 
     let currentNinjaImg; // Variable to hold the current ninja image
 
