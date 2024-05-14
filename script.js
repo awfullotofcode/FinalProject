@@ -2,13 +2,34 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
+// load ninja images
+const ninjaImages = {
+    still: new Image(),
+    right: [],
+    left: [],
+};
+
+// set source for each image
+ninjaImages.still.src = 'ninja-animations/ninja-still.png';
+for (let i = 1; i < 5; i++) {
+    // loads right animations onto right array
+    const rightImg = new Image();
+    rightImg.src = `ninja-animations/ninja-right${i}.png`;
+    ninjaImages.right.push(rightImg);
+
+    const leftImg = new Image();
+    leftImg.src = `ninja-animations/ninja-left${i}.png`;
+    ninjaImages.left.push(leftImg);
+
+}
 // ninja properties
 const ninja = {
     x: 50, // initial x pos
     y: canvas.height- 60, //inital y
     width: 50,
     height: 50,
-    speed: 2.5 // movement speed
+    speed: 10, // movement speed
+    direction: 'still' // initial direction
 };
 // floor properties
 const floor = {
@@ -16,22 +37,23 @@ const floor = {
     height: 10
 };
 
-let lastTimestamp = 0;
+
 // left and right keyboard movement
 document.addEventListener('keydown', (event) => {
 
     if (event.key === 'ArrowLeft') {
         ninja.x -= ninja.speed;
+        ninja.direction = 'left';
     } else if (event.key === 'ArrowRight') {
         ninja.x += ninja.speed;
+        ninja.direction = 'right';
     }
 });
 
 
 
 // update game logic
-function update(deltaTime) {
-    ninja.x += ninja.speed * deltaTime;
+function update() {
     // character boundaries
     if (ninja.x < 0) {
         ninja.x = 0;
@@ -40,6 +62,7 @@ function update(deltaTime) {
     }
 }
 
+let currentFrameIndex = 0;
 // draw game
 function draw() {
     // clear canvas
@@ -49,17 +72,34 @@ function draw() {
     ctx.fillStyle = 'grey';
     ctx.fillRect(0, floor.y, canvas.width, floor.height);
 
-    //draw ninja
-    ctx.fillStyle = 'blue';
-    ctx.fillRect(ninja.x, ninja.y, ninja.width, ninja.height);
+    let currentNinjaImg; // Variable to hold the current ninja image
+
+    if (ninja.direction === 'left') {
+        currentNinjaImg = ninjaImages.left[currentFrameIndex]; // Get the current left-facing ninja image
+    } else if (ninja.direction === 'right') {
+        currentNinjaImg = ninjaImages.right[currentFrameIndex]; // Get the current right-facing ninja image
+    } else {
+        // If the ninja is not moving, use the still image
+        currentNinjaImg = ninjaImages.still;
+    }
+
+    // Draw the current ninja image at the current position
+    ctx.drawImage(currentNinjaImg, ninja.x, ninja.y, ninja.width, ninja.height);
+
+    // Increment the frame index for the next iteration
+    currentFrameIndex++;
+    // Reset the frame index to 0 when it reaches the last frame
+    if (currentFrameIndex >= 4) {
+        currentFrameIndex = 0;
+    }
+
 }
 
 // game loop
-function gameLoop(timestamp) {
-    const deltaTime = (timestamp - lastTimestamp) / 1000;
-    lastTimestamp = timestamp;
+function gameLoop() {
 
-    update(deltaTime);
+
+    update();
 
     draw();
 
