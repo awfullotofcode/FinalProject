@@ -10,7 +10,8 @@ const ninjaImages = {
 
 // game properties
 const gameProperties = {
-    gravity: 9.8
+    gravity: 9.8,
+    platformSpeed: 1
 }
 // ninja properties
 const ninja = {
@@ -90,7 +91,7 @@ function generatePlatform() {
 // Function to update platform positions
 function updatePlatforms() {
     gameEnvironment.platforms.forEach(platform => {
-        platform.y += gameProperties.gravity; // Platforms scroll downwards
+        platform.y += gameProperties.platformSpeed; // Platforms scroll downwards
         // Remove platforms once they move below the screen
         if (platform.y > canvas.height) {
             const index = gameEnvironment.platforms.indexOf(platform);
