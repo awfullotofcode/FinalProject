@@ -107,7 +107,19 @@ function drawPlatforms() {
 }
 // update game logic
 function update() {
-
+    // Check collision between ninja and each platform
+    gameEnvironment.platforms.forEach(platform => {
+        if (
+            ninja.x < platform.x + platform.width &&
+            ninja.x + ninja.width > platform.x &&
+            ninja.y < platform.y + platform.height &&
+            ninja.y + ninja.height > platform.y
+        ) {
+            // Collision detected, allow the ninja to jump
+            ninja.canJump = true;
+            ninja.y = platform.y - ninja.height; // Place the ninja on top of the platform
+        }
+    });
     // movement
     if (ninja.movingLeft) {
         ninja.x -= ninja.speed;
@@ -190,7 +202,7 @@ function draw() {
 
 // game loop
 function gameLoop() {
-
+    updatePlatforms
 
     update();
 
@@ -198,5 +210,7 @@ function gameLoop() {
 
     requestAnimationFrame(gameLoop);
 }
+// Generate initial platforms
+generatePlatform();
 
 requestAnimationFrame(gameLoop);
