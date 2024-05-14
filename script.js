@@ -1,14 +1,37 @@
 // get canvas and context
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
-
-// gravity variable
-let gravity = 9.8;
 // load ninja images
 const ninjaImages = {
     still: new Image(),
     right: [],
     left: [],
+};
+
+// game properties
+const gameProperties = {
+    gravity: 6
+}
+// ninja properties
+const ninja = {
+    x: 50, // initial x pos
+    y: canvas.height- 60, //inital y
+    width: 50,
+    height: 50,
+    //movement
+    speed: 5, // movement speed
+    jumpStart: 0,
+    jumpHeight: 100, // maximum height of the jump
+    jumpSpeed: 5, // speed of the jump
+    jumping: false, // jumping state
+    direction: 'still', // initial direction
+    movingLeft: false,
+    movingRight: false,
+};
+// floor properties
+const floor = {
+    y: canvas.height-10,
+    height: 10
 };
 
 // set source for each image
@@ -24,58 +47,71 @@ for (let i = 1; i < 5; i++) {
     ninjaImages.left.push(leftImg);
 
 }
-// ninja properties
-const ninja = {
-    x: 50, // initial x pos
-    y: canvas.height- 60, //inital y
-    width: 50,
-    height: 50,
-    speed: 5, // movement speed
-    jumpStart: 0,
-    jumpHeight: 100, // maximum height of the jump
-    jumpSpeed: 5, // speed of the jump
-    jumping: false, // jumping state
-    direction: 'still' // initial direction
-};
-// floor properties
-const floor = {
-    y: canvas.height-10,
-    height: 10
-};
 
 
 // keyboard movement
 document.addEventListener('keydown', (event) => {
 
     if (event.key === 'ArrowLeft') {
-        ninja.x -= ninja.speed;
-        ninja.direction = 'left';
+        ninja.movingLeft = true;
+        ninja.direction = 'left'; // Update direction when moving left
     } else if (event.key === 'ArrowRight') {
-        ninja.x += ninja.speed;
-        ninja.direction = 'right';
-    } 
+        ninja.movingRight = true;
+        ninja.direction = 'right'; // Update direction when moving right
+    } else if (event.key === 'ArrowUp' && !ninja.jumping) {
+        ninja.jumping = true;
+        ninja.jumpStart = ninja.y;
+    }
 
 });
 
 // when still
 document.addEventListener('keyup', (event) => {
-    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-        ninja.direction = 'still';
+    if (event.key === 'ArrowLeft') {
+        ninja.movingLeft = false;
+    } else if (event.key === 'ArrowRight') {
+        ninja.movingRight = false;
     }
-
 });
 
 // update game logic
 function update() {
 
-    // character boundaries
-    // left/right
+    // movement
+    if (ninja.movingLeft) {
+        ninja.x -= ninja.speed;
+    }
+    if (ninja.movingRight) {
+        ninja.x += ninja.speed;
+    }
+    // Check if ninja is currently jumping
+    if (ninja.jumping) {
+        // Calculate the new vertical position based on jump speed
+        ninja.y -= ninja.jumpSpeed;
+
+        // Check if the ninja has reached the maximum jump height
+        if (ninja.y <= ninja.jumpStart - ninja.jumpHeight) {
+            // If so, stop jumping and start falling
+            ninja.jumping = false;
+        }
+    } else {
+        // If not jumping, apply gravity
+        if (ninja.y < floor.y - ninja.height) {
+            // Apply gravity until the ninja reaches the floor
+            ninja.y += gameProperties.gravity;
+        } else {
+            // Once the ninja reaches the floor, stop its vertical movement
+            ninja.y = floor.y - ninja.height;
+        }
+    }
+
+    // left/right bounds
     if (ninja.x < 0) {
         ninja.x = 0;
     } else if (ninja.x + ninja.width > canvas.width) {
         ninja.x = canvas.width - ninja.width;
     }
-    // up/down
+    // up/down bounds
     if (ninja.y < 0) { // Ensure ninja cannot go above the top of the canvas
         ninja.y = 0;
     } else if (ninja.y + ninja.height > floor.y) { // Ensure ninja cannot go below the floor
