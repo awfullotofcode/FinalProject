@@ -88,6 +88,18 @@ function generatePlatform() {
     gameEnvironment.platforms.push({ x: platformX, y: platformY, width: platformWidth, height: platformHeight });
 }
 
+// Function to update platform positions
+function updatePlatforms() {
+    gameEnvironment.platforms.forEach(platform => {
+        platform.y += gameProperties.gravity; // Platforms scroll downwards
+        // Remove platforms once they move below the screen
+        if (platform.y > canvas.height) {
+            const index = platforms.indexOf(platform);
+            platforms.splice(index, 1);
+        }
+    });
+}
+
 // update game logic
 function update() {
 
