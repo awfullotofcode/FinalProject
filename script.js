@@ -1,0 +1,238 @@
+// get canvas and context
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+// load ninja images
+const ninjaImages = {
+    still: new Image(),
+    right: [],
+    left: [],
+};
+
+// game properties
+const gameProperties = {
+    gravity: 9.8,
+    platformSpeed: 1
+}
+// ninja properties
+const ninja = {
+    x: canvas.width / 2 - 25, // Initial x position at the center of the canvas
+    y: canvas.height - 60, // Initial y position relative to canvas height
+    width: 50,
+    height: 50,
+    //movement
+    speed: 5, // movement speed
+    canJump: true,
+    jumpStart: 0,
+    jumpHeight: 100, // maximum height of the jump
+    jumpSpeed: 10, // speed of the jump
+    jumping: false, // jumping state
+    direction: 'still', // initial direction
+    movingLeft: false,
+    movingRight: false,
+};
+
+// game environment properties
+const gameEnvironment = {
+    floorY: canvas.height-10,
+    floorHeight: 10,
+    platforms: []
+}
+
+
+// set source for each image
+ninjaImages.still.src = 'ninja-animations/ninja-still.png';
+for (let i = 1; i < 5; i++) {
+    // loads right animations onto right array
+    const rightImg = new Image();
+    rightImg.src = `ninja-animations/ninja-right${i}.png`;
+    ninjaImages.right.push(rightImg);
+
+    const leftImg = new Image();
+    leftImg.src = `ninja-animations/ninja-left${i}.png`;
+    ninjaImages.left.push(leftImg);
+
+}
+
+
+// keyboard movement
+document.addEventListener('keydown', (event) => {
+
+    if (event.key === 'ArrowLeft' || event.key === 'a' || event.key === 'A') {
+        ninja.movingLeft = true;
+        ninja.direction = 'left'; // Update direction when moving left
+    } else if (event.key === 'ArrowRight' || event.key === 'd' || event.key === 'D') {
+        ninja.movingRight = true;
+        ninja.direction = 'right'; // Update direction when moving right
+    } else if ((event.key === 'ArrowUp' || event.key === 'w' || event.key === 'W' || event.key === ' ') && ninja.canJump) {
+        ninja.jumping = true;
+        ninja.jumpStart = ninja.y;
+        ninja.canJump = false;
+    }
+
+});
+
+// when key released
+document.addEventListener('keyup', (event) => {
+    if (event.key === 'ArrowLeft' || event.key === 'a' || event.key === 'A') {
+        ninja.movingLeft = false;
+    } else if (event.key === 'ArrowRight' || event.key === 'd' || event.key === 'D') {
+        ninja.movingRight = false;
+    }
+});
+
+// Function to generate a random platform
+function generatePlatform() {
+    const platformWidth = 100; // Adjust as needed
+    const platformHeight = 10 + Math.random() * 50; // Random height
+    const platformX = Math.random() * (canvas.width - platformWidth);
+    const platformY = -platformHeight; // Spawn platforms above the screen
+    gameEnvironment.platforms.push({ x: platformX, y: platformY, width: platformWidth, height: platformHeight });
+}
+// Function to generate platforms at the top of the canvas
+function generateTopPlatforms() {
+    const numberOfPlatforms = 5; // Adjust as needed
+    for (let i = 0; i < numberOfPlatforms; i++) {
+        generatePlatform();
+    }
+}
+function updateFloor() {
+    // Start scrolling floor when player reaches near the top
+    if (ninja.y < canvas.height / 4) {
+        gameEnvironment.floorY += gameProperties.platformSpeed;
+    }
+}
+// Function to update platform positions
+function updatePlatforms() {
+    // Start scrolling platforms when player reaches near the top
+    if (ninja.y < canvas.height / 4) {
+        gameEnvironment.platforms.forEach(platform => {
+            platform.y += gameProperties.platformSpeed; // Platforms scroll downwards
+            // Remove platforms once they move below the screen
+            if (platform.y > canvas.height) {
+                const index = gameEnvironment.platforms.indexOf(platform);
+                gameEnvironment.platforms.splice(index, 1);
+                // Generate a new platform at the top
+                generatePlatform();
+            }
+        });
+    }
+}
+// Function to draw platforms
+function drawPlatforms() {
+    gameEnvironment.platforms.forEach(platform => {
+        ctx.fillStyle = 'brown'; // Adjust platform color
+        ctx.fillRect(platform.x, platform.y, platform.width, platform.height);
+    });
+}
+// update game logic
+function update() {
+    // Check collision between ninja and each platform
+    gameEnvironment.platforms.forEach(platform => {
+        if (
+            ninja.x < platform.x + platform.width &&
+            ninja.x + ninja.width > platform.x &&
+            ninja.y < platform.y + platform.height &&
+            ninja.y + ninja.height > platform.y
+        ) {
+            // Collision detected, allow the ninja to jump
+            ninja.canJump = true;
+            ninja.y = platform.y - ninja.height; // Place the ninja on top of the platform
+        }
+    });
+    // movement
+    if (ninja.movingLeft) {
+        ninja.x -= ninja.speed;
+    }
+    if (ninja.movingRight) {
+        ninja.x += ninja.speed;
+    }
+    // Check if ninja is currently jumping
+    if (ninja.jumping) {
+        // Calculate the new vertical position based on jump speed
+        ninja.y -= ninja.jumpSpeed;
+
+        // Check if the ninja has reached the maximum jump height
+        if (ninja.y <= ninja.jumpStart - ninja.jumpHeight) {
+            // If so, stop jumping and start falling
+            ninja.jumping = false;
+        }
+    } else {
+        // If not jumping, apply gravity
+        if (ninja.y < gameEnvironment.floorY - ninja.height) {
+            // Apply gravity until the ninja reaches the floor
+            ninja.y += gameProperties.gravity;
+        } else {
+            // Once the ninja reaches the floor, stop its vertical movement
+            ninja.y = gameEnvironment.floorY - ninja.height;
+            ninja.canJump = true;
+        }
+    }
+
+    // left/right bounds
+    if (ninja.x < 0) {
+        ninja.x = 0;
+    } else if (ninja.x + ninja.width > canvas.width) {
+        ninja.x = canvas.width - ninja.width;
+    }
+    // up/down bounds
+    if (ninja.y < 0) { // Ensure ninja cannot go above the top of the canvas
+        ninja.y = 0;
+    } else if (ninja.y + ninja.height > gameEnvironment.floorY) { // Ensure ninja cannot go below the floor
+        ninja.y = gameEnvironment.floorY - ninja.height;
+    }
+
+
+}
+
+let currentFrameIndex = 0;
+// draw game
+function draw() {
+    // clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // draw floor
+    ctx.fillStyle = 'grey';
+    ctx.fillRect(0, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
+
+    drawPlatforms(); // Draw platforms
+
+    let currentNinjaImg; // Variable to hold the current ninja image
+
+    if (ninja.direction === 'left') {
+        currentNinjaImg = ninjaImages.left[currentFrameIndex]; // Get the current left-facing ninja image
+    } else if (ninja.direction === 'right') {
+        currentNinjaImg = ninjaImages.right[currentFrameIndex]; // Get the current right-facing ninja image
+    } else if (ninja.direction === 'still') {
+        // If the ninja is not moving, use the still image
+        currentNinjaImg = ninjaImages.still;
+    }
+
+    // Draw the current ninja image at the current position
+    ctx.drawImage(currentNinjaImg, ninja.x, ninja.y, ninja.width, ninja.height);
+
+    // Increment the frame index for the next iteration
+    currentFrameIndex++;
+    // Reset the frame index to 0 when it reaches the last frame
+    if (currentFrameIndex >= 4) {
+        currentFrameIndex = 0;
+    }
+
+}
+
+// game loop
+function gameLoop() {
+    updateFloor();
+
+    updatePlatforms();
+
+    update();
+
+    draw();
+
+    requestAnimationFrame(gameLoop);
+}
+// Generate initial platforms
+generateTopPlatforms();
+generatePlatform();
+
+requestAnimationFrame(gameLoop);
