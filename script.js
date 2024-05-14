@@ -20,6 +20,7 @@ const ninja = {
     height: 50,
     //movement
     speed: 5, // movement speed
+    canJump: true,
     jumpStart: 0,
     jumpHeight: 100, // maximum height of the jump
     jumpSpeed: 5, // speed of the jump
@@ -58,9 +59,10 @@ document.addEventListener('keydown', (event) => {
     } else if (event.key === 'ArrowRight') {
         ninja.movingRight = true;
         ninja.direction = 'right'; // Update direction when moving right
-    } else if (event.key === 'ArrowUp' && !ninja.jumping) {
+    } else if (event.key === 'ArrowUp' && ninja.canJump) {
         ninja.jumping = true;
         ninja.jumpStart = ninja.y;
+        ninja.canJump = false;
     }
 
 });
@@ -102,6 +104,7 @@ function update() {
         } else {
             // Once the ninja reaches the floor, stop its vertical movement
             ninja.y = floor.y - ninja.height;
+            ninja.canJump = true;
         }
     }
 
