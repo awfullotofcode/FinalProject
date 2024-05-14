@@ -122,13 +122,8 @@ function movement() {
 }
 // update game logic
 function update() {
-
     movement();
-
     boundaries();
-
-
-
 }
 
 let currentFrameIndex = 0;
