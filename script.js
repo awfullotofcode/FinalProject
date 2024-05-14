@@ -1,17 +1,31 @@
 // get canvas and context
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
+
 // load ninja images
 const ninjaImages = {
     still: new Image(),
     right: [],
     left: [],
-};
+}
+// set source for each image
+ninjaImages.still.src = 'ninja-animations/ninja-still.png';
+for (let i = 1; i < 5; i++) {
+    // loads right animations onto right array
+    const rightImg = new Image();
+    rightImg.src = `ninja-animations/ninja-right${i}.png`;
+    ninjaImages.right.push(rightImg);
+
+    const leftImg = new Image();
+    leftImg.src = `ninja-animations/ninja-left${i}.png`;
+    ninjaImages.left.push(leftImg);
+
+}
 
 // game properties
 const gameProperties = {
-    gravity: 9.8,
-};
+    gravity: 9.8
+}
 // ninja properties
 const ninja = {
     x: canvas.width / 2 - 25, // Initial x position at the center of the canvas
@@ -28,29 +42,12 @@ const ninja = {
     direction: 'still', // initial direction
     movingLeft: false,
     movingRight: false,
-};
-
+}
 // game environment properties
 const gameEnvironment = {
     floorY: canvas.height-10,
     floorHeight: 10,
-};
-
-
-// set source for each image
-ninjaImages.still.src = 'ninja-animations/ninja-still.png';
-for (let i = 1; i < 5; i++) {
-    // loads right animations onto arrays
-    const rightImg = new Image();
-    rightImg.src = `ninja-animations/ninja-right${i}.png`;
-    ninjaImages.right.push(rightImg);
-
-    const leftImg = new Image();
-    leftImg.src = `ninja-animations/ninja-left${i}.png`;
-    ninjaImages.left.push(leftImg);
-
 }
-
 
 // keyboard movement
 document.addEventListener('keydown', (event) => {
@@ -78,8 +75,22 @@ document.addEventListener('keyup', (event) => {
     }
 });
 
-// update game logic
-function update() {
+function boundaries() {
+    // left/right bounds
+    if (ninja.x < 0) {
+        ninja.x = 0;
+    } else if (ninja.x + ninja.width > canvas.width) {
+        ninja.x = canvas.width - ninja.width;
+    }
+    // up/down bounds
+    if (ninja.y < 0) { // Ensure ninja cannot go above the top of the canvas
+        ninja.y = 0;
+    } else if (ninja.y + ninja.height > gameEnvironment.floorY) { // Ensure ninja cannot go below the floor
+        ninja.y = gameEnvironment.floorY - ninja.height;
+    }
+}
+
+function movement() {
     // movement
     if (ninja.movingLeft) {
         ninja.x -= ninja.speed;
@@ -105,21 +116,11 @@ function update() {
             ninja.canJump = true;
         }
     }
-
-    // left/right bounds
-    if (ninja.x < 0) {
-        ninja.x = 0;
-    } else if (ninja.x + ninja.width > canvas.width) {
-        ninja.x = canvas.width - ninja.width;
-    }
-    // up/down bounds
-    if (ninja.y < 0) { // Ensure ninja cannot go above the top of the canvas
-        ninja.y = 0;
-    } else if (ninja.y + ninja.height > gameEnvironment.floorY) { // Ensure ninja cannot go below the floor
-        ninja.y = gameEnvironment.floorY - ninja.height;
-    }
-
-
+}
+// update game logic
+function update() {
+    movement();
+    boundaries();
 }
 
 let currentFrameIndex = 0;
