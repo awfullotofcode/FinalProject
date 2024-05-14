@@ -11,7 +11,6 @@ const ninjaImages = {
 // game properties
 const gameProperties = {
     gravity: 9.8,
-    platformSpeed: 1
 }
 // ninja properties
 const ninja = {
@@ -35,7 +34,6 @@ const ninja = {
 const gameEnvironment = {
     floorY: canvas.height-10,
     floorHeight: 10,
-    platforms: []
 }
 
 
@@ -80,65 +78,8 @@ document.addEventListener('keyup', (event) => {
     }
 });
 
-// Function to generate a random platform
-function generatePlatform() {
-    const platformWidth = 100; // Adjust as needed
-    const platformHeight = 10 + Math.random() * 50; // Random height
-    const platformX = Math.random() * (canvas.width - platformWidth);
-    const platformY = -platformHeight; // Spawn platforms above the screen
-    gameEnvironment.platforms.push({ x: platformX, y: platformY, width: platformWidth, height: platformHeight });
-}
-// Function to generate platforms at the top of the canvas
-function generateTopPlatforms() {
-    const numberOfPlatforms = 5; // Adjust as needed
-    for (let i = 0; i < numberOfPlatforms; i++) {
-        generatePlatform();
-    }
-}
-function updateFloor() {
-    // Start scrolling floor when player reaches near the top
-    if (ninja.y < canvas.height / 4) {
-        gameEnvironment.floorY += gameProperties.platformSpeed;
-    }
-}
-// Function to update platform positions
-function updatePlatforms() {
-    // Start scrolling platforms when player reaches near the top
-    if (ninja.y < canvas.height / 4) {
-        gameEnvironment.platforms.forEach(platform => {
-            platform.y += gameProperties.platformSpeed; // Platforms scroll downwards
-            // Remove platforms once they move below the screen
-            if (platform.y > canvas.height) {
-                const index = gameEnvironment.platforms.indexOf(platform);
-                gameEnvironment.platforms.splice(index, 1);
-                // Generate a new platform at the top
-                generatePlatform();
-            }
-        });
-    }
-}
-// Function to draw platforms
-function drawPlatforms() {
-    gameEnvironment.platforms.forEach(platform => {
-        ctx.fillStyle = 'brown'; // Adjust platform color
-        ctx.fillRect(platform.x, platform.y, platform.width, platform.height);
-    });
-}
 // update game logic
 function update() {
-    // Check collision between ninja and each platform
-    gameEnvironment.platforms.forEach(platform => {
-        if (
-            ninja.x < platform.x + platform.width &&
-            ninja.x + ninja.width > platform.x &&
-            ninja.y < platform.y + platform.height &&
-            ninja.y + ninja.height > platform.y
-        ) {
-            // Collision detected, allow the ninja to jump
-            ninja.canJump = true;
-            ninja.y = platform.y - ninja.height; // Place the ninja on top of the platform
-        }
-    });
     // movement
     if (ninja.movingLeft) {
         ninja.x -= ninja.speed;
@@ -194,8 +135,6 @@ function draw() {
     ctx.fillStyle = 'grey';
     ctx.fillRect(0, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
 
-    drawPlatforms(); // Draw platforms
-
     let currentNinjaImg; // Variable to hold the current ninja image
 
     if (ninja.direction === 'left') {
@@ -221,9 +160,6 @@ function draw() {
 
 // game loop
 function gameLoop() {
-    updateFloor();
-
-    updatePlatforms();
 
     update();
 
@@ -231,8 +167,5 @@ function gameLoop() {
 
     requestAnimationFrame(gameLoop);
 }
-// Generate initial platforms
-generateTopPlatforms();
-generatePlatform();
 
 requestAnimationFrame(gameLoop);
