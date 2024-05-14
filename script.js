@@ -29,6 +29,11 @@ const ninja = {
     movingLeft: false,
     movingRight: false,
 };
+
+// game environment properties
+const gameEnvironment = {
+    floorY: canvas.height-10
+}
 // floor properties
 const floor = {
     y: canvas.height-10,
