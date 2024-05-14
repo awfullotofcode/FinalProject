@@ -10,7 +10,7 @@ const ninjaImages = {
 
 // game properties
 const gameProperties = {
-    gravity: 6
+    gravity: 9.8
 }
 // ninja properties
 const ninja = {
@@ -23,7 +23,7 @@ const ninja = {
     canJump: true,
     jumpStart: 0,
     jumpHeight: 100, // maximum height of the jump
-    jumpSpeed: 5, // speed of the jump
+    jumpSpeed: 10, // speed of the jump
     jumping: false, // jumping state
     direction: 'still', // initial direction
     movingLeft: false,
@@ -53,13 +53,13 @@ for (let i = 1; i < 5; i++) {
 // keyboard movement
 document.addEventListener('keydown', (event) => {
 
-    if (event.key === 'ArrowLeft') {
+    if (event.key === 'ArrowLeft' || event.key === 'a' || event.key === 'A') {
         ninja.movingLeft = true;
         ninja.direction = 'left'; // Update direction when moving left
-    } else if (event.key === 'ArrowRight') {
+    } else if (event.key === 'ArrowRight' || event.key === 'd' || event.key === 'D') {
         ninja.movingRight = true;
         ninja.direction = 'right'; // Update direction when moving right
-    } else if (event.key === 'ArrowUp' && ninja.canJump) {
+    } else if ((event.key === 'ArrowUp' || event.key === 'w' || event.key === 'W' || event.key === ' ') && ninja.canJump) {
         ninja.jumping = true;
         ninja.jumpStart = ninja.y;
         ninja.canJump = false;
@@ -67,11 +67,11 @@ document.addEventListener('keydown', (event) => {
 
 });
 
-// when still
+// when key released
 document.addEventListener('keyup', (event) => {
-    if (event.key === 'ArrowLeft') {
+    if (event.key === 'ArrowLeft' || event.key === 'a' || event.key === 'A') {
         ninja.movingLeft = false;
-    } else if (event.key === 'ArrowRight') {
+    } else if (event.key === 'ArrowRight' || event.key === 'd' || event.key === 'D') {
         ninja.movingRight = false;
     }
 });
