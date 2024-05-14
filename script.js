@@ -49,6 +49,9 @@ const gameEnvironment = {
     floorHeight: 10,
 }
 
+generate platforms () {
+    
+}
 
 // keyboard movement
 document.addEventListener('keydown', (event) => {
