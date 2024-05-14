@@ -49,7 +49,9 @@ const gameEnvironment = {
     floorHeight: 10,
     platformHeight: 20
 }
-
+function generatePlatforms() {
+    ctx.fillStyle
+}
 // keyboard movement
 document.addEventListener('keydown', (event) => {
 
@@ -75,9 +77,7 @@ document.addEventListener('keyup', (event) => {
         ninja.movingRight = false;
     }
 });
-function generatePlatforms() {
 
-}
 function boundaries() {
     // left/right bounds
     if (ninja.x < 0) {
@@ -159,7 +159,6 @@ function draw() {
     ctx.fillRect(0, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
 
     // draw platforms
-    ctx.fillStyl
 
     drawNinja();
 
