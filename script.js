@@ -103,14 +103,19 @@ function updateFloor() {
 }
 // Function to update platform positions
 function updatePlatforms() {
-    gameEnvironment.platforms.forEach(platform => {
-        platform.y += gameProperties.platformSpeed; // Platforms scroll downwards
-        // Remove platforms once they move below the screen
-        if (platform.y > canvas.height) {
-            const index = gameEnvironment.platforms.indexOf(platform);
-            gameEnvironment.platforms.splice(index, 1);
-        }
-    });
+    // Start scrolling platforms when player reaches near the top
+    if (ninja.y < canvas.height / 4) {
+        gameEnvironment.platforms.forEach(platform => {
+            platform.y += gameProperties.platformSpeed; // Platforms scroll downwards
+            // Remove platforms once they move below the screen
+            if (platform.y > canvas.height) {
+                const index = gameEnvironment.platforms.indexOf(platform);
+                gameEnvironment.platforms.splice(index, 1);
+                // Generate a new platform at the top
+                generatePlatform();
+            }
+        });
+    }
 }
 // Function to draw platforms
 function drawPlatforms() {
