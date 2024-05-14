@@ -1,3 +1,11 @@
+body {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Ensure body takes up full height of viewport */
+    margin: 0; /* Remove default margin */
+}
+
 #gameCanvas {
     display: block;
     margin: 0 auto;
