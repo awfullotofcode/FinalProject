@@ -78,9 +78,7 @@ document.addEventListener('keyup', (event) => {
     }
 });
 
-
-// update game logic
-function update() {
+function movement() {
     // movement
     if (ninja.movingLeft) {
         ninja.x -= ninja.speed;
@@ -109,6 +107,11 @@ function update() {
             ninja.canJump = true;
         }
     }
+}
+// update game logic
+function update() {
+
+    movement();
 
     // left/right bounds
     if (ninja.x < 0) {
