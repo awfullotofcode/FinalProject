@@ -47,10 +47,12 @@ const ninja = {
 const gameEnvironment = {
     floorY: canvas.height-10,
     floorHeight: 10,
-    platformHeight: 20
+    platformHeight: 20,
+    platformColor: 'red'
 }
 function generatePlatforms() {
-    ctx.fillStyle
+    ctx.fillStyle = gameEnvironment.platformColor;
+    ctx.fill
 }
 // keyboard movement
 document.addEventListener('keydown', (event) => {
