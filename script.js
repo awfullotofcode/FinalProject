@@ -35,11 +35,7 @@ const gameEnvironment = {
     floorY: canvas.height-10,
     floorHeight: 10
 }
-// floor properties
-const floor = {
-    y: canvas.height-10,
-    height: 10
-};
+
 
 // set source for each image
 ninjaImages.still.src = 'ninja-animations/ninja-still.png';
@@ -138,7 +134,7 @@ function draw() {
 
     // draw floor
     ctx.fillStyle = 'grey';
-    ctx.fillRect(0, gameEnvironment.floorY, canvas.width, floor.height);
+    ctx.fillRect(0, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
 
     let currentNinjaImg; // Variable to hold the current ninja image
 
