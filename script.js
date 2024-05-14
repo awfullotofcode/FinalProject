@@ -36,7 +36,7 @@ const ninja = {
     speed: 5, // movement speed
     canJump: true,
     jumpStart: 0,
-    jumpHeight: 120, // maximum height of the jump
+    jumpHeight: 100, // maximum height of the jump
     jumpSpeed: 10, // speed of the jump
     jumping: false, // jumping state
     direction: 'still', // initial direction
@@ -100,15 +100,18 @@ function movement() {
     }
     // Check if ninja is currently jumping
     if (ninja.jumping) {
+        // Calculate the new vertical position based on jump speed
         ninja.y -= ninja.jumpSpeed;
 
         // Check if the ninja has reached the maximum jump height
         if (ninja.y <= ninja.jumpStart - ninja.jumpHeight) {
+            // If so, stop jumping and start falling
             ninja.jumping = false;
         }
     } else {
-        // If not jumping, apply gravity until hit floor
+        // If not jumping, apply gravity
         if (ninja.y < gameEnvironment.floorY - ninja.height) {
+            // Apply gravity until the ninja reaches the floor
             ninja.y += gameProperties.gravity;
         } else {
             // Once the ninja reaches the floor, stop its vertical movement
@@ -165,5 +168,6 @@ function gameLoop() {
 
     requestAnimationFrame(gameLoop);
 }
+
 
 requestAnimationFrame(gameLoop);
