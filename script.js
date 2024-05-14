@@ -94,9 +94,17 @@ function updatePlatforms() {
         platform.y += gameProperties.gravity; // Platforms scroll downwards
         // Remove platforms once they move below the screen
         if (platform.y > canvas.height) {
-            const index = platforms.indexOf(platform);
-            platforms.splice(index, 1);
+            const index = gameEnvironment.platforms.indexOf(platform);
+            gameEnvironment.platforms.splice(index, 1);
         }
+    });
+}
+
+// Function to draw platforms
+function drawPlatforms() {
+    gameEnvironment.platforms.forEach(platform => {
+        ctx.fillStyle = 'brown'; // Adjust platform color
+        ctx.fillRect(platform.x, platform.y, platform.width, platform.height);
     });
 }
 
