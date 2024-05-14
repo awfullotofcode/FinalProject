@@ -49,6 +49,7 @@ const gameEnvironment = {
     floorHeight: 10,
 }
 
+
 // keyboard movement
 document.addEventListener('keydown', (event) => {
 
