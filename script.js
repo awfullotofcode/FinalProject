@@ -33,7 +33,8 @@ const ninja = {
 // game environment properties
 const gameEnvironment = {
     floorY: canvas.height-10,
-    floorHeight: 10
+    floorHeight: 10,
+    platforms: []
 }
 
 
@@ -77,6 +78,15 @@ document.addEventListener('keyup', (event) => {
         ninja.movingRight = false;
     }
 });
+
+// Function to generate a random platform
+function generatePlatform() {
+    const platformWidth = 100; // Adjust as needed
+    const platformHeight = 10 + Math.random() * 50; // Random height
+    const platformX = Math.random() * (canvas.width - platformWidth);
+    const platformY = -platformHeight; // Spawn platforms above the screen
+    gameEnvironment.platforms.push({ x: platformX, y: platformY, width: platformWidth, height: platformHeight });
+}
 
 // update game logic
 function update() {
