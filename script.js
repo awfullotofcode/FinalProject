@@ -89,7 +89,6 @@ function update() {
     }
     // Check if ninja is currently jumping
     if (ninja.jumping) {
-        // Calculate the new vertical position based on jump speed
         ninja.y -= ninja.jumpSpeed;
 
         // Check if the ninja has reached the maximum jump height
@@ -98,9 +97,8 @@ function update() {
             ninja.jumping = false;
         }
     } else {
-        // If not jumping, apply gravity
+        // If not jumping, apply gravity until hit floor
         if (ninja.y < gameEnvironment.floorY - ninja.height) {
-            // Apply gravity until the ninja reaches the floor
             ninja.y += gameProperties.gravity;
         } else {
             // Once the ninja reaches the floor, stop its vertical movement
