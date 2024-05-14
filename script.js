@@ -47,7 +47,7 @@ const ninja = {
 const gameEnvironment = {
     floorY: canvas.height-10,
     floorHeight: 10,
-    platformHeight:
+    platformHeight: 20
 }
 
 // keyboard movement
