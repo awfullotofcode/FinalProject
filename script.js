@@ -221,6 +221,8 @@ function draw() {
 
 // game loop
 function gameLoop() {
+    updateFloor();
+
     updatePlatforms();
 
     update();
@@ -230,6 +232,7 @@ function gameLoop() {
     requestAnimationFrame(gameLoop);
 }
 // Generate initial platforms
+generateTopPlatforms();
 generatePlatform();
 
 requestAnimationFrame(gameLoop);
