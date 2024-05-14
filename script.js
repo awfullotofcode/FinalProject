@@ -47,10 +47,7 @@ const ninja = {
 const gameEnvironment = {
     floorY: canvas.height-10,
     floorHeight: 10,
-}
-
-generate platforms () {
-    
+    platformHeight:
 }
 
 // keyboard movement
@@ -78,7 +75,9 @@ document.addEventListener('keyup', (event) => {
         ninja.movingRight = false;
     }
 });
+function generatePlatforms() {
 
+}
 function boundaries() {
     // left/right bounds
     if (ninja.x < 0) {
