@@ -36,7 +36,7 @@ const ninja = {
     speed: 5, // movement speed
     canJump: true,
     jumpStart: 0,
-    jumpHeight: 100, // maximum height of the jump
+    jumpHeight: 120, // maximum height of the jump
     jumpSpeed: 10, // speed of the jump
     jumping: false, // jumping state
     direction: 'still', // initial direction
@@ -100,18 +100,15 @@ function movement() {
     }
     // Check if ninja is currently jumping
     if (ninja.jumping) {
-        // Calculate the new vertical position based on jump speed
         ninja.y -= ninja.jumpSpeed;
 
         // Check if the ninja has reached the maximum jump height
         if (ninja.y <= ninja.jumpStart - ninja.jumpHeight) {
-            // If so, stop jumping and start falling
             ninja.jumping = false;
         }
     } else {
-        // If not jumping, apply gravity
+        // If not jumping, apply gravity until hit floor
         if (ninja.y < gameEnvironment.floorY - ninja.height) {
-            // Apply gravity until the ninja reaches the floor
             ninja.y += gameProperties.gravity;
         } else {
             // Once the ninja reaches the floor, stop its vertical movement
@@ -127,15 +124,7 @@ function update() {
 }
 
 let currentFrameIndex = 0;
-// draw game
-function draw() {
-    // clear canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // draw floor
-    ctx.fillStyle = 'grey';
-    ctx.fillRect(0, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
-
+function drawNinja () {
     let currentNinjaImg; // Variable to hold the current ninja image
 
     if (ninja.direction === 'left') {
@@ -156,6 +145,16 @@ function draw() {
     if (currentFrameIndex >= 4) {
         currentFrameIndex = 0;
     }
+}
+// draw game
+function draw() {
+    // clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // draw floor
+    ctx.fillStyle = 'grey';
+    ctx.fillRect(0, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
+    drawNinja();
 
 }
 
@@ -168,6 +167,5 @@ function gameLoop() {
 
     requestAnimationFrame(gameLoop);
 }
-
 
 requestAnimationFrame(gameLoop);
