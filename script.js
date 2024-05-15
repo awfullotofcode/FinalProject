@@ -52,7 +52,7 @@ const gameEnvironment = {
     platformColor: 'red',
     platformWidth: Math.floor(Math.random() * (ninja.width * 4 + 1)) + ninja.width,
     platformHeight: 20,
-    platformX: Math.floor(Math.random() * (canvas.width - gameEnvironment.platformWidth)) + (ninja.x + (ninja.width * 2)),
+    platformX: 375,
     platformY: 340
 }
 function generatePlatforms() {
@@ -165,8 +165,6 @@ function draw() {
     ctx.fillStyle = gameEnvironment.floorColor;
     ctx.fillRect(gameEnvironment.floorX, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
 
-    // draw platforms
-    generatePlatforms();
     drawNinja();
 
 }
