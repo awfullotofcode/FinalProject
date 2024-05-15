@@ -175,6 +175,7 @@ function gameLoop() {
     update();
 
     draw();
+    drawPlatform();
 
     requestAnimationFrame(gameLoop);
 }
