@@ -49,7 +49,7 @@ const gameEnvironment = {
     floorX: 0,
     floorY: canvas.height-10,
     floorHeight: 10,
-    platformColor: 'red',
+    initialPlatformColor: 'red',
     platformWidth: Math.floor(Math.random() * (ninja.width * 4 + 1)) + ninja.width,
     platformHeight: 20,
     initialPlatformX: Math.floor(Math.random() * (canvas.width - (ninja.x * 2))) + ninja.x * 2,
@@ -132,6 +132,7 @@ function update() {
 
 function drawPlatform() {
     ctx.fillStyle = gameEnvironment.platformColor;
+
     ctx.fillRect(gameEnvironment.initialPlatformX, gameEnvironment.initialPlatformY, gameEnvironment.platformWidth, gameEnvironment.platformHeight);
     console.log("Platform position: x =", gameEnvironment.initialPlatformX, ", y =", gameEnvironment.initialPlatformY);
 }
