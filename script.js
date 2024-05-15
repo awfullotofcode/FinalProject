@@ -45,19 +45,19 @@ const ninja = {
 }
 // game environment properties
 const gameEnvironment = {
-    floorColor: 'grey'
+    floorColor: 'grey',
     floorX: 0,
     floorY: canvas.height-10,
     floorHeight: 10,
     platformColor: 'red',
     platformWidth: Math.floor(Math.random() * (ninja.width * 4 + 1)) + ninja.width,
     platformHeight: 20,
-    platformX: Math.floor(Math.random() * )
-    platformY: Math.floor(Math.random() * (ninja.jumpHeight - (ninja.height / 2 ))),
+    platformX: Math.floor(Math.random() * (canvas.width - ninja.width)) +ninja.width,
+    platformY: Math.floor(Math.random() * (ninja.jumpHeight - (ninja.height / 2 )))
 }
 function generatePlatforms() {
     ctx.fillStyle = gameEnvironment.platformColor;
-    ctx.fillRect()
+    ctx.fillRect(gameEnvironment.platformX, gameEnvironment.platformY, gameEnvironment.platformWidth, gameEnvironment.platformHeight);
 }
 // keyboard movement
 document.addEventListener('keydown', (event) => {
