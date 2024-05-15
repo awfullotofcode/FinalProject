@@ -10,7 +10,7 @@ const render = Render.create({
     engine: engine,
     options: {
         width: 800,
-        height: 600,
+        height: 400,
         wireframes: false // Set to true for wireframe view
     }
 });
