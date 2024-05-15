@@ -51,7 +51,7 @@ const gameEnvironment = {
     floorHeight: 10,
     platformHeight: 20,
     platformColor: 'red'
-    platformX
+    platformX:Math.floor(Math.random() * 1)
 }
 function generatePlatforms() {
     ctx.fillStyle = gameEnvironment.platformColor;
