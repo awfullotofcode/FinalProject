@@ -55,10 +55,6 @@ const gameEnvironment = {
     platformX: 375,
     platformY: 340
 }
-function generatePlatforms() {
-    ctx.fillStyle = gameEnvironment.platformColor;
-    ctx.fillRect(gameEnvironment.platformX, gameEnvironment.platformY, gameEnvironment.platformWidth, gameEnvironment.platformHeight);
-}
 // keyboard movement
 document.addEventListener('keydown', (event) => {
 
@@ -162,9 +158,8 @@ function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // draw floor
-    ctx.fillStyle = gameEnvironment.floorColor;
-    ctx.fillRect(gameEnvironment.floorX, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
-
+    ctx.fillStyle = 'grey';
+    ctx.fillRect(0, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
     drawNinja();
 
 }
