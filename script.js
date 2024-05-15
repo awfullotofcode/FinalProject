@@ -43,6 +43,10 @@ const ninja = {
     movingLeft: false,
     movingRight: false
 }
+// ninja references
+ninja.feet = ninja.y + (ninja.height / 2)
+ninja.head = ninja.y - (ninja.height / 2)
+
 // game environment properties
 const gameEnvironment = {
     floorColor: 'grey',
