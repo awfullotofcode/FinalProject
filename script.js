@@ -17,17 +17,6 @@ var render = Render.create({
     engine: engine
 });
 
-// Create a Matter.js renderer
-const render = Matter.Render.create({
-    canvas: canvas,
-    engine: engine,
-    options: {
-        width: canvas.width,
-        height: canvas.height,
-        wireframes: false // Set to true for wireframe rendering
-    }
-});
-
 // load ninja images
 const ninjaImages = {
     still: new Image(),
@@ -82,15 +71,13 @@ const gameEnvironment = {
     initialPlatformX: Math.floor(Math.random() * (canvas.width - (ninja.x * 2))) + ninja.x * 2,
     initialPlatformY: Math.floor(Math.random() * (ninja.y - (ninja.y - (ninja.jumpHeight -(ninja.height / 2))))) + (ninja.y - (ninja.jumpHeight -(ninja.height / 2)))
 }
-// Create a Matter.js body for the ninja
-const ninjaBody = Matter.Bodies.rectangle(ninja.x, ninja.y, ninja.width, ninja.height, {
-    friction: 0,
-    frictionAir: 0.02,
-    restitution: 0.5
-});
 
-// Add the ninja body to the Matter.js world
-Matter.World.add(engine.world, [ninjaBody]);
+
+// create two boxes and a ground
+var ninjaBody = Bodies.rectangle(400, 200, 80, 80);
+var boxB = Bodies.rectangle(450, 50, 80, 80);
+var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
+
 // keyboard movement
 document.addEventListener('keydown', (event) => {
 
