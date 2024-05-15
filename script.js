@@ -166,7 +166,7 @@ function draw() {
     ctx.fillRect(gameEnvironment.floorX, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
 
     // draw platforms
-
+    generatePlatforms();
     drawNinja();
 
 }
