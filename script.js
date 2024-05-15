@@ -1,34 +1,33 @@
-/* Matter.js goes here */
-// Import Matter.js library
-import { Engine, Render, Runner, Bodies, Composite } from './node_modules/matter-js/build/matter.js';
+// Initialize Matter.js
+const { Engine, Render, Runner, Bodies, World } = Matter;
 
+// Create an engine
+const engine = Engine.create();
 
-// module aliases
-
-
-// create an engine
-var engine = Engine.create();
-
-// create a renderer
-var render = Render.create({
-    element: document.body,
-    engine: engine
+// Create a renderer
+const render = Render.create({
+    element: document.getElementById("gameCanvas"),
+    engine: engine,
+    options: {
+        width: 800,
+        height: 600,
+        wireframes: false // Set to true for wireframe view
+    }
 });
 
-// create two boxes and a ground
-var boxA = Bodies.rectangle(400, 200, 80, 80);
-var boxB = Bodies.rectangle(450, 50, 80, 80);
-var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
+// Create two boxes and a ground
+const boxA = Bodies.rectangle(400, 200, 80, 80);
+const boxB = Bodies.rectangle(450, 50, 80, 80);
+const ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
 
-// add all of the bodies to the world
-Composite.add(engine.world, [boxA, boxB, ground]);
+// Add all of the bodies to the world
+World.add(engine.world, [boxA, boxB, ground]);
 
-// run the renderer
+// Run the renderer
 Render.run(render);
 
-// create runner
-var runner = Runner.create();
+// Create runner
+const runner = Runner.create();
 
-// run the engine
+// Run the engine
 Runner.run(runner, engine);
-
