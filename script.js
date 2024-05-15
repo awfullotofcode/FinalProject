@@ -52,7 +52,7 @@ const gameEnvironment = {
     platformColor: 'red',
     platformWidth: Math.floor(Math.random() * (ninja.width * 4 + 1)) + ninja.width,
     platformHeight: 20,
-    platformX: Math.floor(Math.random() * canvas.width) + 100,
+    platformX: Math.floor(Math.random() * (canvas.width - (ninja.x * 2))) + ninja.x * 2,
     platformY: 340
 }
 
