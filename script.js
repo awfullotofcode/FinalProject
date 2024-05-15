@@ -55,6 +55,11 @@ const gameEnvironment = {
     platformX: 375,
     platformY: 340
 }
+
+function drawPlatform() {
+    ctx.fillStyle = gameEnvironment.platformColor;
+    ctx.fillRect(gameEnvironment.platformX, gameEnvironment.platformY, gameEnvironment.platformWidth, gameEnvironment.platformHeight);
+}
 // keyboard movement
 document.addEventListener('keydown', (event) => {
 
