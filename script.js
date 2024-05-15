@@ -28,7 +28,7 @@ const gameProperties = {
 }
 // ninja properties
 const ninja = {
-    x: canvas.width / 2 - 25, // Initial x (375)
+    x: 50, // Initial x (375)
     y: canvas.height - 60, // Initial y (340)
     width: 50,
     height: 50,
@@ -52,7 +52,7 @@ const gameEnvironment = {
     platformColor: 'red',
     platformWidth: Math.floor(Math.random() * (ninja.width * 4 + 1)) + ninja.width,
     platformHeight: 20,
-    platformX: 375,
+    platformX: Math.floor(Math.random() * canvas.width) + (ninja.x + (ninja.width * 2)),
     platformY: 340
 }
 
