@@ -76,7 +76,8 @@ const gameEnvironment = {
 // create bodies
 var ninjaBody = Bodies.rectangle(ninja.x, ninja.y, ninja.width, ninja.height);
 var floorBody = Bodies.rectangle(gameEnvironment.floorX, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
-
+// add all of the bodies to the world
+Composite.add(engine.world, [ninjaBody, floorBody]);
 
 // keyboard movement
 document.addEventListener('keydown', (event) => {
