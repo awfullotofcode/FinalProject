@@ -165,8 +165,8 @@ function draw() {
     // draw floor
     ctx.fillStyle = 'grey';
     ctx.fillRect(0, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
+    drawPlatform();
     drawNinja();
-
 }
 
 // game loop
@@ -174,8 +174,6 @@ function gameLoop() {
 
     update();
 
-    drawPlatform();
-    
     draw();
 
     requestAnimationFrame(gameLoop);
