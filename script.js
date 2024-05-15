@@ -50,6 +50,7 @@ const gameEnvironment = {
     platformHeight: 20,
     platformColor: 'red',
     platformMaxY: 200
+    platformX: 
 }
 function generatePlatforms() {
     ctx.fillStyle = gameEnvironment.platformColor;
