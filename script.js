@@ -52,7 +52,10 @@ const gameEnvironment = {
     floorY: canvas.height-10,
     floorHeight: 10,
 }
-
+const firstPlat = {
+    width: 200,
+    height: 1
+}
 // keyboard movement
 document.addEventListener('keydown', (event) => {
 
@@ -82,7 +85,7 @@ document.addEventListener('keyup', (event) => {
 // assets
 function drawPlatform() {
     ctx.fillStyle = 'red';
-    ctx.fillRect(375, 340, 1, 50);
+    ctx.fillRect(375, 340, firstPlat.width, firstPlat.height);
 }
 
 function boundaries() {
