@@ -137,16 +137,27 @@ function movement() {
         if (ninja.y <= ninja.jumpStart - ninja.jumpHeight) {
             ninja.jumping = false;
         }
-    } else {
-        // If not jumping, apply gravity until hit floor
-        if (ninja.y < gameEnvironment.floorY - ninja.height) {
-            ninja.y += gameProperties.gravity;
-        } else {
-            // Once the ninja reaches the floor, stop its vertical movement
-            ninja.y = gameEnvironment.floorY - ninja.height;
-            ninja.canJump = true;
-        }
     }
+    // Listen for collision events
+    Events.on(engine, 'collisionStart', (event) => {
+        event.pairs.forEach((pair) => {
+            const { bodyA, bodyB } = pair;
+
+            // Check if either body is the ninja and the other is the floor
+            if ((bodyA === ninjaBody && bodyB === floorBody) || (bodyA === floorBody && bodyB === ninjaBody)) {
+                // Ninja collided with the floor
+                ninja.canJump = true;
+
+                // Calculate the distance between the top edge of the floor and the bottom edge of the ninja
+                const overlap = (ninja.y + ninja.height) - (gameEnvironment.floorY - gameEnvironment.floorHeight);
+
+                // If the ninja is overlapping with the floor, adjust its position to stay atop the floor
+                if (overlap > 0) {
+                    ninja.y -= overlap;
+                }
+            }
+        });
+    });
 }
 // update game logic
 function update() {
