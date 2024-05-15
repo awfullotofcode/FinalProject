@@ -73,10 +73,10 @@ const gameEnvironment = {
 }
 
 
-// create two boxes and a ground
-var ninjaBody = Bodies.rectangle(400, 200, 80, 80);
-var boxB = Bodies.rectangle(450, 50, 80, 80);
-var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
+// create bodies
+var ninjaBody = Bodies.rectangle(ninja.x, ninja.y, ninja.width, ninja.height);
+var floorBody = Bodies.rectangle(gameEnvironment.floorX, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
+
 
 // keyboard movement
 document.addEventListener('keydown', (event) => {
