@@ -49,10 +49,12 @@ const gameEnvironment = {
     floorX: 0,
     floorY: canvas.height-10,
     floorHeight: 10,
-    platformHeight: 20,
     platformColor: 'red',
     platformWidth: Math.floor(Math.random() * (ninja.width * 4)),
-    platformY: Math.floor(Math.random() * 95),
+    platformHeight: 20,
+    platformX:     platformColor: 'red',
+    platformWidth: Math.floor(Math.random() * ),
+    platformY: Math.floor(Math.random() * (ninja.jumpHeight - )),
 }
 function generatePlatforms() {
     ctx.fillStyle = gameEnvironment.platformColor;
