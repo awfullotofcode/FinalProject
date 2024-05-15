@@ -77,6 +77,12 @@ document.addEventListener('keyup', (event) => {
     }
 });
 
+// assets
+function drawPlatform() {
+    ctx.fillStyle = 'red';
+    ctx.fillRect(375, 340, 200, 1);
+}
+
 function boundaries() {
     // left/right bounds
     if (ninja.x < 0) {
@@ -162,8 +168,8 @@ function draw() {
     ctx.fillRect(0, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
 
     // draw platform
-    ctx.fillStyle = 'red';
-    ctx.fillRect(375, 340, 200, 1);
+    drawPlatform();
+
 
     drawNinja();
 }
