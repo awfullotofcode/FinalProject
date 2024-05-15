@@ -2,7 +2,7 @@
 #### Video Demo:  <URL HERE>
 #### Description:
 This is my first web-based game developed purely in HTML, CSS, and JavaScript, the user controls a ninja with keyboard directional keys and the purpose is to jump through platforms, dodge obstacles, and fight enemies.
-
+#### My Journey:
 ##### 05/13/2024
 ###### How I implemented the animations
 A lot of today was spent on creating the ninjas running animations frame by frame in Adobe Illustrator, I am no expert in graphic design but I feel i did well for my first animations I've made. His running consists of 4 frames, I know ALOT, but it took me a while to learn how to work illustrator and get the results i wanted. The frames are recycled by reflecting them when the character is moving in the opposite direction. I used an array in JS to load up the images and loop through them depending on which direction the keybutton was pressed.
@@ -13,4 +13,4 @@ I created a variable for ninja that stores different properties. In his properti
 I have added a favicon to the main pages title to add a little style. In addition I've transferred the 'floor properties' to another variable named 'gameEnvironment', I plan to add any game environment properties like platforms colors etc to this variable. Also I added functionality for if the user wants to use the 'a','d', and 'w' keys as well as the space bar to jump. Today was a little more difficult as I am trying to implement collision detection in order for my ninja to be able to run atop the platform. I've tried a couple different things now like calculating collision based off of ninjas x and y and although really buggy I have gotten him to run atop it but again really buggy and he is not really on top of the platform moreso inside of it
 ##### 05/15/2024
 ###### Revelation!!!
-I see now implementing collision detection is pretty complex especially if you have multiple objects. After several failed attempts of implementing it on my own I am
+I see now implementing collision detection is pretty complex especially if you have multiple objects. After several failed attempts of implementing it on my own I am using a library called matter.js which I intend to use to implement collision detection
