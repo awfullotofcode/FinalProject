@@ -49,11 +49,6 @@ const gameEnvironment = {
     floorX: 0,
     floorY: canvas.height-10,
     floorHeight: 10,
-    initialPlatformColor: 'red',
-    platformWidth: Math.floor(Math.random() * (ninja.width * 4 + 1)) + ninja.width,
-    platformHeight: 20,
-    initialPlatformX: Math.floor(Math.random() * (canvas.width - (ninja.x * 2))) + ninja.x * 2,
-    initialPlatformY: Math.floor(Math.random() * (ninja.y - (ninja.y - (ninja.jumpHeight -(ninja.height / 2))))) + (ninja.y - (ninja.jumpHeight -(ninja.height / 2)))
 }
 
 // keyboard movement
@@ -165,6 +160,10 @@ function draw() {
     // draw floor
     ctx.fillStyle = 'grey';
     ctx.fillRect(0, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
+
+    // draw platform
+    ctx.fillStyle = 'red';
+    ctx.fillRect(375, 340, 200, 1);
 
     drawNinja();
 }
