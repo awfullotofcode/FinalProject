@@ -28,8 +28,8 @@ const gameProperties = {
 }
 // ninja properties
 const ninja = {
-    x: canvas.width / 2 - 25, // Initial x ()
-    y: canvas.height - 60, // Initial y position relative to canvas height
+    x: canvas.width / 2 - 25, // Initial x (375)
+    y: canvas.height - 60, // Initial y (340)
     width: 50,
     height: 50,
     //movement
