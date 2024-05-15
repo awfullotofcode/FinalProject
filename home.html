@@ -1,17 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf=8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Ninja Run</title>
-        <link rel="icon" href="/ninja-icon/ninja-icon.png">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.18.0/matter.min.js"></script>
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimal Matter.js Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.18.0/matter.min.js"></script>
+    <style>
+        /* Optional: Add some minimal styling */
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <script>
+        const { Engine, Render, Runner, Bodies, World } = Matter;
 
-        <canvas id="gameCanvas" width="800" height="400"></canvas>
-        <script src="script.js"></script>
-    </body>
+        // Create an engine
+        const engine = Engine.create();
+
+        // Create a renderer
+        const render = Render.create({
+            element: document.getElementById("gameCanvas"),
+            engine: engine,
+            options: {
+                wireframes: false // Set to true for wireframe view
+            }
+        });
+
+        // Create two boxes and a ground
+        const boxA = Bodies.rectangle(400, 200, 80, 80);
+        const boxB = Bodies.rectangle(450, 50, 80, 80);
+        const ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
+
+        // Add all of the bodies to the world
+        World.add(engine.world, [boxA, boxB, ground]);
+
+        // Run the renderer
+        Render.run(render);
+
+        // Create runner
+        const runner = Runner.create();
+
+        // Run the engine
+        Runner.run(runner, engine);
+    </script>
+</body>
 </html>
