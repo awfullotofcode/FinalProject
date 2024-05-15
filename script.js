@@ -52,15 +52,10 @@ const gameEnvironment = {
     platformColor: 'red',
     platformWidth: Math.floor(Math.random() * (ninja.width * 4 + 1)) + ninja.width,
     platformHeight: 20,
-    platformX: Math.floor(Math.random() * (canvas.width - (ninja.x * 2))) + ninja.x * 2,
-    platformY: Math.floor(Math.random() * (ninja.y - (ninja.y - (ninja.jumpHeight -(ninja.height / 2))))) + (ninja.y - (ninja.jumpHeight -(ninja.height / 2)))
+    initialPlatformX: Math.floor(Math.random() * (canvas.width - (ninja.x * 2))) + ninja.x * 2,
+    initialPlatformY: Math.floor(Math.random() * (ninja.y - (ninja.y - (ninja.jumpHeight -(ninja.height / 2))))) + (ninja.y - (ninja.jumpHeight -(ninja.height / 2)))
 }
 
-function drawPlatform() {
-    ctx.fillStyle = gameEnvironment.platformColor;
-    ctx.fillRect(gameEnvironment.platformX, gameEnvironment.platformY, gameEnvironment.platformWidth, gameEnvironment.platformHeight);
-    console.log("Platform position: x =", gameEnvironment.platformX, ", y =", gameEnvironment.platformY);
-}
 // keyboard movement
 document.addEventListener('keydown', (event) => {
 
@@ -133,6 +128,12 @@ function movement() {
 function update() {
     movement();
     boundaries();
+}
+
+function drawPlatform() {
+    ctx.fillStyle = gameEnvironment.platformColor;
+    ctx.fillRect(gameEnvironment.platformX, gameEnvironment.platformY, gameEnvironment.platformWidth, gameEnvironment.platformHeight);
+    console.log("Platform position: x =", gameEnvironment.platformX, ", y =", gameEnvironment.platformY);
 }
 
 let currentFrameIndex = 0;
