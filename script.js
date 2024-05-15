@@ -43,10 +43,7 @@ const ninja = {
     movingLeft: false,
     movingRight: false
 }
-// ninja references
-ninja.feet = ninja.y + (ninja.height / 2)
-ninja.head = ninja.y - (ninja.height / 2)
-ninja.left = ninja.x
+
 
 // game environment properties
 const gameEnvironment = {
@@ -85,7 +82,7 @@ document.addEventListener('keyup', (event) => {
 // assets
 function drawPlatform() {
     ctx.fillStyle = 'red';
-    ctx.fillRect(375, 340, 200, 1);
+    ctx.fillRect(375, 340, 1, 50);
 }
 
 function boundaries() {
