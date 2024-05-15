@@ -91,6 +91,9 @@ function drawPlatform() {
     ctx.fillStyle = 'red';
     ctx.fillRect(375, 340, firstPlat.width, firstPlat.height);
 }
+function checkCollision() {
+    if (ninja.feet < )
+}
 
 function boundaries() {
     // left/right bounds
