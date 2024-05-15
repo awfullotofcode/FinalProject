@@ -1,7 +1,19 @@
 // get canvas and context
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
+// Initialize Matter.js engine
+const engine = Matter.Engine.create();
 
+// Create a Matter.js renderer
+const render = Matter.Render.create({
+    canvas: canvas,
+    engine: engine,
+    options: {
+        width: canvas.width,
+        height: canvas.height,
+        wireframes: false // Set to true for wireframe rendering
+    }
+});
 // load ninja images
 const ninjaImages = {
     still: new Image(),
