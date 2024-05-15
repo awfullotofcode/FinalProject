@@ -1,6 +1,7 @@
 /* Matter.js goes here */
 // Import Matter.js library
-import Matter from 'matter-js';
+import Matter from './node_modules/matter-js/build/matter.js';
+
 
 // module aliases
 var Engine = Matter.Engine,
