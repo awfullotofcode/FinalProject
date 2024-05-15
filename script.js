@@ -43,6 +43,10 @@ const ninja = {
     movingLeft: false,
     movingRight: false
 }
+ninja.head = ninja.y
+ninja.feet = ninja.y + ninja.height
+ninja.left = ninja.x
+ninja.right = ninja.x + ninja.width
 
 
 // game environment properties
