@@ -48,7 +48,8 @@ const gameEnvironment = {
     floorY: canvas.height-10,
     floorHeight: 10,
     platformHeight: 20,
-    platformColor: 'red'
+    platformColor: 'red',
+    platformMaxY: 200
 }
 function generatePlatforms() {
     ctx.fillStyle = gameEnvironment.platformColor;
