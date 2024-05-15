@@ -160,7 +160,7 @@ function draw() {
 
     // draw floor
     ctx.fillStyle = gameEnvironment.floorColor;
-    ctx.fillRect(0, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
+    ctx.fillRect(gameEnvironment.floorX, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
 
     // draw platforms
 
