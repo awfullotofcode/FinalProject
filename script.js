@@ -46,6 +46,7 @@ const ninja = {
 // ninja references
 ninja.feet = ninja.y + (ninja.height / 2)
 ninja.head = ninja.y - (ninja.height / 2)
+ninja.left = ninja.x
 
 // game environment properties
 const gameEnvironment = {
