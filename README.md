@@ -12,4 +12,5 @@ I created a variable for ninja that stores different properties. In his properti
 ###### Minor updates
 I have added a favicon to the main pages title to add a little style. In addition I've transferred the 'floor properties' to another variable named 'gameEnvironment', I plan to add any game environment properties like platforms colors etc to this variable. Also I added functionality for if the user wants to use the 'a','d', and 'w' keys as well as the space bar to jump. Today was a little more difficult as I am trying to implement collision detection in order for my ninja to be able to run atop the platform. I've tried a couple different things now like calculating collision based off of ninjas x and y and although really buggy I have gotten him to run atop it but again really buggy and he is not really on top of the platform moreso inside of it
 ##### 05/15/2024
-###### R
+###### Revelation!!!
+I see now implementing collision detection is pretty complex especially if you have multiple objects. After several failed attempts of implementing it on my own I am
