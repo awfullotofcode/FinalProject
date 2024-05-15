@@ -6,7 +6,7 @@ const ctx = canvas.getContext('2d');
 const ninjaImages = {
     still: new Image(),
     right: [],
-    left: [],
+    left: []
 }
 // set source for each image
 ninjaImages.still.src = 'ninja-animations/ninja-still.png';
@@ -41,14 +41,16 @@ const ninja = {
     jumping: false, // jumping state
     direction: 'still', // initial direction
     movingLeft: false,
-    movingRight: false,
+    movingRight: false
 }
 // game environment properties
 const gameEnvironment = {
+    floorColor: 'grey'
+    floorX: 0,
     floorY: canvas.height-10,
     floorHeight: 10,
     platformHeight: 20,
-    platformColor: 'red',
+    platformColor: 'red'
 }
 function generatePlatforms() {
     ctx.fillStyle = gameEnvironment.platformColor;
@@ -157,7 +159,7 @@ function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // draw floor
-    ctx.fillStyle = 'grey';
+    ctx.fillStyle = gameEnvironment.floorColor;
     ctx.fillRect(0, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
 
     // draw platforms
