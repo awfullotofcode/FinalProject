@@ -51,7 +51,7 @@ const gameEnvironment = {
     floorHeight: 10,
     platformHeight: 20,
     platformColor: 'red',
-    platformWidth: Math.floor(Math.random() * ),
+    platformWidth: Math.floor(Math.random() * (ninja.width * 4)),
     platformY: Math.floor(Math.random() * 95),
 }
 function generatePlatforms() {
