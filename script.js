@@ -99,7 +99,7 @@ function boundaries() {
 
 function movement() {
         // Check for collision with the platform
-        if (ninja.y + ninja.height >= gameEnvironment.initialPlatformY && ninja.y + ninja.height <= gameEnvironment.initialPlatformY + gameEnvironment.platformHeight &&
+        if (ninja.y + (ninja.height / 2) <= gameEnvironment.initialPlatformY &&
             ninja.x + ninja.width >= gameEnvironment.initialPlatformX && ninja.x <= gameEnvironment.initialPlatformX + gameEnvironment.platformWidth) {
             // Adjust ninja's position to stand on top of the platform
             ninja.y = gameEnvironment.initialPlatformY - ninja.height;
