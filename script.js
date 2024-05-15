@@ -157,6 +157,7 @@ function drawNinja () {
     if (currentFrameIndex >= 4) {
         currentFrameIndex = 0;
     }
+    console.log("Ninja position: x =", ninja.x, ", y =", ninja.y);
 }
 // draw game
 function draw() {
