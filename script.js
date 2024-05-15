@@ -132,8 +132,8 @@ function update() {
 
 function drawPlatform() {
     ctx.fillStyle = gameEnvironment.platformColor;
-    ctx.fillRect(gameEnvironment.platformX, gameEnvironment.platformY, gameEnvironment.platformWidth, gameEnvironment.platformHeight);
-    console.log("Platform position: x =", gameEnvironment.platformX, ", y =", gameEnvironment.platformY);
+    ctx.fillRect(gameEnvironment.initialPlatformX, gameEnvironment.initialPlatformY, gameEnvironment.platformWidth, gameEnvironment.platformHeight);
+    console.log("Platform position: x =", gameEnvironment.initialPlatformX, ", y =", gameEnvironment.initialPlatformY);
 }
 
 let currentFrameIndex = 0;
