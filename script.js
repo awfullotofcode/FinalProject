@@ -131,11 +131,7 @@ function update() {
     boundaries();
 }
 
-function drawPlatform() {
-    ctx.fillStyle = gameEnvironment.initialPlatformColor;
-    ctx.fillRect(gameEnvironment.initialPlatformX, gameEnvironment.initialPlatformY, gameEnvironment.platformWidth, gameEnvironment.platformHeight);
-    console.log("Platform position: x =", gameEnvironment.initialPlatformX, ", y =", gameEnvironment.initialPlatformY);
-}
+
 
 let currentFrameIndex = 0;
 function drawNinja () {
@@ -169,7 +165,6 @@ function draw() {
     // draw floor
     ctx.fillStyle = 'grey';
     ctx.fillRect(0, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
-    drawPlatform();
     drawNinja();
 }
 
