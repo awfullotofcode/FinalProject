@@ -11,7 +11,7 @@ var engine = Engine.create();
 
 // create a renderer
 var render = Render.create({
-    element: document.getElementById('gameCanvas'),
+    element: document.body,
     engine: engine
 });
 
