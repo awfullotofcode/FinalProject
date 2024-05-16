@@ -41,8 +41,7 @@ const ninja = {
     jumping: false, // jumping state
     direction: 'still', // initial direction
     movingLeft: false,
-    movingRight: false,
-    onPlatform: false
+    movingRight: false
 }
 
 
@@ -98,7 +97,7 @@ function checkCollision() {
 
 
     if (ninja.feet < firstPlat.y && ninja.hCenter > firstPlat.x && ninja.hCenter < (firstPlat.x + firstPlat.width)) {
-        ninja.onPlatform = true;
+        ninja.y = firstPlat.y - ninja.height;
     }
 }
 
@@ -145,17 +144,10 @@ function movement() {
         }
     }
 }
-
-function updatePhysics() {
-    if (ninja.onPlatform) {
-        
-    }
-}
 // update game logic
 function update() {
     movement();
     boundaries();
-    updatePhysics();
 }
 
 
