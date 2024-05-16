@@ -43,10 +43,6 @@ const ninja = {
     movingLeft: false,
     movingRight: false
 }
-ninja.head = ninja.y;
-ninja.feet = ninja.y + ninja.height;
-ninja.left = ninja.x;
-ninja.right = ninja.x + ninja.width;
 
 
 // game environment properties
@@ -96,6 +92,10 @@ function drawPlatform() {
     ctx.fillRect(firstPlat.x, firstPlat.y, firstPlat.width, firstPlat.height);
 }
 function checkCollision() {
+    ninja.head = ninja.y;
+    ninja.feet = ninja.y + ninja.height;
+    ninja.left = ninja.x;
+    ninja.right = ninja.x + ninja.width;
     if (ninja.feet < firstPlat.y && ninja.left > firstPlat.x && ninja.right < (firstPlat.x + firstPlat.width)) {
         ninja.y = firstPlat.y - ninja.height;
     }
@@ -196,6 +196,8 @@ function draw() {
 function gameLoop() {
 
     update();
+
+    checkCollision();
 
     draw();
 
