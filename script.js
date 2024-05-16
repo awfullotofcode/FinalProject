@@ -83,8 +83,10 @@ document.addEventListener('keydown', (event) => {
 document.addEventListener('keyup', (event) => {
     if (event.key === 'ArrowLeft' || event.key === 'a' || event.key === 'A') {
         ninja.movingLeft = false;
+        ninja.direction = 'still';
     } else if (event.key === 'ArrowRight' || event.key === 'd' || event.key === 'D') {
         ninja.movingRight = false;
+        ninja.direction = 'still';
     }
 });
 
