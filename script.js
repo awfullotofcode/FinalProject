@@ -158,6 +158,8 @@ function movement() {
     // Apply gravity
     if (!ninja.jumping && ninja.y < gameEnvironment.floorY - ninja.height) {
         ninja.y += gameProperties.gravity;
+    } else {
+        ninja.
     }
 }
 
