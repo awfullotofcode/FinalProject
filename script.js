@@ -92,11 +92,13 @@ function drawPlatform() {
     ctx.fillRect(firstPlat.x, firstPlat.y, firstPlat.width, firstPlat.height);
 }
 function checkCollision() {
+    //ninja references
     ninja.head = ninja.y;
     ninja.feet = ninja.y + ninja.height;
-    ninja.left = ninja.x;
-    ninja.right = ninja.x + ninja.width;
-    if (ninja.feet < firstPlat.y && ninja.left > firstPlat.x && ninja.right < (firstPlat.x + firstPlat.width)) {
+    ninja.hCenter = ninja.x + (ninja.width / 2);
+
+
+    if (ninja.feet < firstPlat.y && ninja.hCenter > firstPlat.x && ninja.hCenter < (firstPlat.x + firstPlat.width)) {
         ninja.y = firstPlat.y - ninja.height;
     }
 }
