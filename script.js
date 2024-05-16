@@ -95,16 +95,16 @@ function checkCollision() {
     ninja.feet = ninja.y + ninja.height;
     ninja.hCenter = ninja.x + (ninja.width / 2);
 
-    // Once the ninja reaches the floor, stop its vertical movement
-    ninja.y = gameEnvironment.floorY - ninja.height;
-    ninja.canJump = true;
     // CHATGPT HELP FINISH THIS FUNCTION
     // CHECK IF NINJA IS WITHIN RANGE ()
-    if (ninja.feet <= firstPlat.y && ninja.hCenter > firstPlat.x && ninja.hCenter < (firstPlat.x + firstPlat.width)) {
-        // APPLY GRAVITY AFTER NINJAS JUMP UNTIL HE REACHES PLATFORM
-        if (ninja.jumping && ninja.y <= ninja.jumpStart - ninja.jumpHeight && ninja.feet > ) {
+    // If not jumping, apply gravity && check collision
+    if (ninja.y < ninja.jumpStart - ninja.height) {
+        ninja.y += gameProperties.gravity;
+    } else {
 
-        }
+        // Once the ninja reaches the floor, stop its vertical movement
+        ninja.y = gameEnvironment.floorY - ninja.height;
+        ninja.canJump = true;
     }
 
 }
@@ -142,13 +142,9 @@ function movement() {
             ninja.jumping = false;
         }
     } else {
-        // If not jumping, apply gravity until hit floor
-        if (ninja.y < ninja.jumpStart - ninja.height) {
-            ninja.y += gameProperties.gravity;
-        } else {
-            //check collision
+        // check collision
+        checkCollision();
 
-        }
     }
 }
 // update game logic
@@ -203,8 +199,6 @@ function draw() {
 function gameLoop() {
 
     update();
-
-    checkCollision();
 
     draw();
 
