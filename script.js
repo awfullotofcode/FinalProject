@@ -43,8 +43,6 @@ const ninja = {
     movingLeft: false,
     movingRight: false
 }
-
-
 // game environment properties
 const gameEnvironment = {
     floorColor: 'grey',
@@ -58,6 +56,7 @@ const firstPlat = {
     width: 200,
     height: 1
 }
+
 // keyboard movement
 document.addEventListener('keydown', (event) => {
 
@@ -74,7 +73,6 @@ document.addEventListener('keydown', (event) => {
     }
 
 });
-
 // when key released
 document.addEventListener('keyup', (event) => {
     if (event.key === 'ArrowLeft' || event.key === 'a' || event.key === 'A') {
@@ -84,23 +82,37 @@ document.addEventListener('keyup', (event) => {
     }
 });
 
+
 // assets
 function drawPlatform() {
     ctx.fillStyle = 'red';
     ctx.fillRect(firstPlat.x, firstPlat.y, firstPlat.width, firstPlat.height);
 }
-/*function checkCollision() {
-    //ninja references
-    ninja.head = ninja.y;
-    ninja.feet = ninja.y + ninja.height;
-    ninja.hCenter = ninja.x + (ninja.width / 2);
+let currentFrameIndex = 0;
+function drawNinja () {
+    let currentNinjaImg; // Variable to hold the current ninja image
 
-    // CHATGPT HELP FINISH THIS FUNCTION
-    // CHECK IF NINJA IS WITHIN RANGE of firstPlat
-    // APPLY GRAVITY AFTER NINJAS JUMP UNTIL HE REACHES PLATFORM
+    if (ninja.direction === 'left') {
+        currentNinjaImg = ninjaImages.left[currentFrameIndex]; // Get the current left-facing ninja image
+    } else if (ninja.direction === 'right') {
+        currentNinjaImg = ninjaImages.right[currentFrameIndex]; // Get the current right-facing ninja image
+    } else if (ninja.direction === 'still') {
+        // If the ninja is not moving, use the still image
+        currentNinjaImg = ninjaImages.still;
+    }
 
+    // Draw the current ninja image at the current position
+    ctx.drawImage(currentNinjaImg, ninja.x, ninja.y, ninja.width, ninja.height);
 
-} */
+    // Increment the frame index for the next iteration
+    currentFrameIndex++;
+    // Reset the frame index to 0 when it reaches the last frame
+    if (currentFrameIndex >= 4) {
+        currentFrameIndex = 0;
+    }
+    console.log("Ninja position: x =", ninja.x, ", y =", ninja.y);
+}
+
 
 function boundaries() {
     // left/right bounds
@@ -116,7 +128,6 @@ function boundaries() {
         ninja.y = gameEnvironment.floorY - ninja.height;
     }
 }
-
 
 function movement() {
     // movement
@@ -145,37 +156,11 @@ function movement() {
         }
     }
 }
+
 // update game logic
 function update() {
     movement();
     boundaries();
-}
-
-
-
-let currentFrameIndex = 0;
-function drawNinja () {
-    let currentNinjaImg; // Variable to hold the current ninja image
-
-    if (ninja.direction === 'left') {
-        currentNinjaImg = ninjaImages.left[currentFrameIndex]; // Get the current left-facing ninja image
-    } else if (ninja.direction === 'right') {
-        currentNinjaImg = ninjaImages.right[currentFrameIndex]; // Get the current right-facing ninja image
-    } else if (ninja.direction === 'still') {
-        // If the ninja is not moving, use the still image
-        currentNinjaImg = ninjaImages.still;
-    }
-
-    // Draw the current ninja image at the current position
-    ctx.drawImage(currentNinjaImg, ninja.x, ninja.y, ninja.width, ninja.height);
-
-    // Increment the frame index for the next iteration
-    currentFrameIndex++;
-    // Reset the frame index to 0 when it reaches the last frame
-    if (currentFrameIndex >= 4) {
-        currentFrameIndex = 0;
-    }
-    console.log("Ninja position: x =", ninja.x, ", y =", ninja.y);
 }
 // draw game
 function draw() {
@@ -192,7 +177,6 @@ function draw() {
 
     drawNinja();
 }
-
 // game loop
 function gameLoop() {
 
