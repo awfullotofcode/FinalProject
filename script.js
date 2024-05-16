@@ -41,7 +41,8 @@ const ninja = {
     jumping: false, // jumping state
     direction: 'still', // initial direction
     movingLeft: false,
-    movingRight: false
+    movingRight: false,
+    onPlatform: false
 }
 
 
@@ -97,7 +98,7 @@ function checkCollision() {
 
 
     if (ninja.feet < firstPlat.y && ninja.hCenter > firstPlat.x && ninja.hCenter < (firstPlat.x + firstPlat.width)) {
-        ninja.y = firstPlat.y - ninja.height;
+        ninja.onPlatform = true;
     }
 }
 
