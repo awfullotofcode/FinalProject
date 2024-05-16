@@ -43,10 +43,10 @@ const ninja = {
     movingLeft: false,
     movingRight: false
 }
-ninja.head = ninja.y
-ninja.feet = ninja.y + ninja.height
-ninja.left = ninja.x
-ninja.right = ninja.x + ninja.width
+ninja.head = ninja.y;
+ninja.feet = ninja.y + ninja.height;
+ninja.left = ninja.x;
+ninja.right = ninja.x + ninja.width;
 
 
 // game environment properties
@@ -57,6 +57,8 @@ const gameEnvironment = {
     floorHeight: 10,
 }
 const firstPlat = {
+    x:375,
+    y:340,
     width: 200,
     height: 1
 }
@@ -89,10 +91,12 @@ document.addEventListener('keyup', (event) => {
 // assets
 function drawPlatform() {
     ctx.fillStyle = 'red';
-    ctx.fillRect(375, 340, firstPlat.width, firstPlat.height);
+    ctx.fillRect(firstPlat.x, firstPlat.y, firstPlat.width, firstPlat.height);
 }
 function checkCollision() {
-    if (ninja.feet < )
+    if (ninja.feet < firstPlat.y && ninja.left > firstPlat.x && ninja.right < (firstPlat.x + firstPlat.width)) {
+        ninja.y = gameEnvironment.
+    }
 }
 
 function boundaries() {
