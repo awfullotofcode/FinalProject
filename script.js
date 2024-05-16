@@ -89,25 +89,18 @@ function drawPlatform() {
     ctx.fillStyle = 'red';
     ctx.fillRect(firstPlat.x, firstPlat.y, firstPlat.width, firstPlat.height);
 }
-function checkCollision() {
+/*function checkCollision() {
     //ninja references
     ninja.head = ninja.y;
     ninja.feet = ninja.y + ninja.height;
     ninja.hCenter = ninja.x + (ninja.width / 2);
 
     // CHATGPT HELP FINISH THIS FUNCTION
-    // CHECK IF NINJA IS WITHIN RANGE ()
-    // If not jumping, apply gravity && check collision
-    if (ninja.y < ninja.jumpStart - ninja.height) {
-        ninja.y += gameProperties.gravity;
-    } else {
+    // CHECK IF NINJA IS WITHIN RANGE of firstPlat
+    // APPLY GRAVITY AFTER NINJAS JUMP UNTIL HE REACHES PLATFORM
 
-        // Once the ninja reaches the floor, stop its vertical movement
-        ninja.y = gameEnvironment.floorY - ninja.height;
-        ninja.canJump = true;
-    }
 
-}
+} */
 
 function boundaries() {
     // left/right bounds
@@ -142,9 +135,14 @@ function movement() {
             ninja.jumping = false;
         }
     } else {
-        // check collision
-        checkCollision();
-
+        // If not jumping, apply gravity until hit floor
+        if (ninja.y < ninja.jumpStart - ninja.height) {
+            ninja.y += gameProperties.gravity;
+        } else {
+            // Once the ninja reaches the floor, stop its vertical movement
+            ninja.y = gameEnvironment.floorY - ninja.height;
+            ninja.canJump = true;
+        }
     }
 }
 // update game logic
@@ -199,6 +197,7 @@ function draw() {
 function gameLoop() {
 
     update();
+
 
     draw();
 
