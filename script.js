@@ -21,7 +21,6 @@ for (let i = 1; i < 5; i++) {
     ninjaImages.left.push(leftImg);
 
 }
-
 // game properties
 const gameProperties = {
     gravity: 9.8
@@ -114,6 +113,16 @@ function drawNinja () {
 }
 
 
+function checkCollision() {
+    ninja.feet = ninja.y + ninja.height;
+    ninja.hCenter = ninja.x + (ninja.width / 2);
+
+    if (ninja.feet < firstPlat.y && ninja.hCenter > firstPlat.x &&
+        ninja.hCenter < (firstPlat.x + firstPlat.width)) {
+
+    }
+}
+
 function boundaries() {
     // left/right bounds
     if (ninja.x < 0) {
@@ -146,15 +155,16 @@ function movement() {
             ninja.jumping = false;
         }
     } else {
-        // If not jumping, apply gravity until collision
+        // If not jumping, apply gravity until hit floor
         if (ninja.y < ninja.jumpStart - ninja.height) {
             ninja.y += gameProperties.gravity;
         } else {
-            /* Once ninja collides with any object floor or platform(CHATGPT HELP HERE)
-
-            */
-
-            // This is currently what I have but I would like to move this inside the check collision position
+            /* CHATGPT help revise to add any collision
+            functions to checkCollision() function */
+            // Working code here
+            // Once the ninja reaches the floor, stop its vertical movement
+            ninja.y = gameEnvironment.floorY - ninja.height;
+            ninja.canJump = true;
         }
     }
 }
