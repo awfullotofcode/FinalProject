@@ -95,10 +95,15 @@ function checkCollision() {
     ninja.feet = ninja.y + ninja.height;
     ninja.hCenter = ninja.x + (ninja.width / 2);
 
-    if (ninja.jumping && ninja.y <= ninja.jumpStart - ninja.jumpHeight)
-        if (ninja.feet < firstPlat.y && ninja.hCenter > firstPlat.x && ninja.hCenter < (firstPlat.x + firstPlat.width)) {
-            // help finish chatgpt please
+    // CHATGPT HELP FINISH THIS FUNCTION
+    // CHECK IF NINJA IS WITHIN RANGE ()
+    if (ninja.feet <= firstPlat.y && ninja.hCenter > firstPlat.x && ninja.hCenter < (firstPlat.x + firstPlat.width)) {
+        // APPLY GRAVITY AFTER NINJAS JUMP UNTIL HE REACHES PLATFORM
+        if (ninja.jumping && ninja.y <= ninja.jumpStart - ninja.jumpHeight && ninja.feet > ) {
+
         }
+    }
+
 }
 
 function boundaries() {
