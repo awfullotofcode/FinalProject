@@ -145,10 +145,17 @@ function movement() {
         }
     }
 }
+
+function updatePhysics() {
+    if (ninja.onPlatform) {
+        
+    }
+}
 // update game logic
 function update() {
     movement();
     boundaries();
+    updatePhysics();
 }
 
 
