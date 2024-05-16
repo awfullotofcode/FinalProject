@@ -1,7 +1,7 @@
 // get canvas and context
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
-
+let currentFrameIndex = 0;
 // load ninja images
 const ninjaImages = {
     still: new Image(),
@@ -90,7 +90,7 @@ function drawPlatform() {
     ctx.fillStyle = 'red';
     ctx.fillRect(firstPlat.x, firstPlat.y, firstPlat.width, firstPlat.height);
 }
-let currentFrameIndex = 0;
+
 function drawNinja () {
     let currentNinjaImg; // Variable to hold the current ninja image
 
@@ -114,7 +114,21 @@ function drawNinja () {
     }
     console.log("Ninja position: x =", ninja.x, ", y =", ninja.y);
 }
+// draw game
+function draw() {
+    // clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    // draw floor
+    ctx.fillStyle = 'grey';
+    ctx.fillRect(0, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
+
+    // draw platform
+    drawPlatform();
+
+
+    drawNinja();
+}
 
 function checkCollision() {
     ninja.feet = ninja.y + ninja.height;
@@ -173,21 +187,7 @@ function update() {
     movement();
     boundaries();
 }
-// draw game
-function draw() {
-    // clear canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // draw floor
-    ctx.fillStyle = 'grey';
-    ctx.fillRect(0, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
-
-    // draw platform
-    drawPlatform();
-
-
-    drawNinja();
-}
 // game loop
 function gameLoop() {
 
