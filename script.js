@@ -95,7 +95,7 @@ function drawPlatform() {
 }
 function checkCollision() {
     if (ninja.feet < firstPlat.y && ninja.left > firstPlat.x && ninja.right < (firstPlat.x + firstPlat.width)) {
-        ninja.y = gameEnvironment.
+        ninja.y = firstPlat.y - ninja.height;
     }
 }
 
