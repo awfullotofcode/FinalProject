@@ -154,14 +154,10 @@ function movement() {
         if (ninja.y <= ninja.jumpStart - ninja.jumpHeight) {
             ninja.jumping = false;
         }
-    } else {
-        // If not jumping, apply gravity until hit floor
-        if (ninja.y < ninja.jumpStart - ninja.height) {
-            ninja.y += gameProperties.gravity;
-        } else {
-            ninja.y = gameEnvironment.floorY - ninja.height;
-            ninja.canJump = true;
-        }
+    }
+    // Apply gravity
+    if (!ninja.jumping && ninja.y < gameEnvironment.floorY - ninja.height) {
+        ninja.y += gameProperties.gravity;
     }
 }
 
