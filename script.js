@@ -173,7 +173,6 @@ function movement() {
         }
     } else {
         // If not jumping, apply gravity until collide
-        
         if (ninja.y < ninja.jumpStart - ninja.height) {
             ninja.y += gameProperties.gravity;
         } else {
