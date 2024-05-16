@@ -134,7 +134,7 @@ function checkCollision() {
     ninja.feet = ninja.y + ninja.height;
     ninja.hCenter = ninja.x + (ninja.width / 2);
 
-    if (!ninja.jumping && ninja.feet < firstPlat.y && ninja.hCenter > firstPlat.x &&
+    if (ninja.feet < firstPlat.y && ninja.hCenter > firstPlat.x &&
         ninja.hCenter < (firstPlat.x + firstPlat.width)) {
             ninja.y = firstPlat.y - ninja.height;
     }
@@ -172,7 +172,8 @@ function movement() {
             ninja.jumping = false;
         }
     } else {
-        // If not jumping, apply gravity until hit floor
+        // If not jumping, apply gravity until collide
+        
         if (ninja.y < ninja.jumpStart - ninja.height) {
             ninja.y += gameProperties.gravity;
         } else {
@@ -192,7 +193,6 @@ function update() {
 function gameLoop() {
 
     update();
-    checkCollision();
     draw();
 
     requestAnimationFrame(gameLoop);
