@@ -150,9 +150,11 @@ function movement() {
         if (ninja.y < ninja.jumpStart - ninja.height) {
             ninja.y += gameProperties.gravity;
         } else {
-            // Once the ninja reaches the floor, stop its vertical movement
-            ninja.y = gameEnvironment.floorY - ninja.height;
-            ninja.canJump = true;
+            /* Once ninja collides with any object floor or platform(CHATGPT HELP HERE)
+
+            */
+
+            // This is currently what I have but I would like to move this inside the check collision position
         }
     }
 }
