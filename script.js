@@ -23,9 +23,6 @@ for (let i = 1; i < 5; i++) {
 }
 
 
-// keyboard movement
-
-
 
 // game properties
 const gameProperties = {
@@ -61,7 +58,29 @@ const firstPlat = {
     width: 200,
     height: 1
 }
+document.addEventListener('keydown', (event) => {
 
+    if (event.key === 'ArrowLeft' || event.key === 'a' || event.key === 'A') {
+        ninja.movingLeft = true;
+        ninja.direction = 'left'; // Update direction when moving left
+    } else if (event.key === 'ArrowRight' || event.key === 'd' || event.key === 'D') {
+        ninja.movingRight = true;
+        ninja.direction = 'right'; // Update direction when moving right
+    } else if ((event.key === 'ArrowUp' || event.key === 'w' || event.key === 'W' || event.key === ' ') && ninja.canJump) {
+        ninja.jumping = true;
+        ninja.jumpStart = ninja.y;
+        ninja.canJump = false;
+    }
+
+});
+// when key released
+document.addEventListener('keyup', (event) => {
+    if (event.key === 'ArrowLeft' || event.key === 'a' || event.key === 'A') {
+        ninja.movingLeft = false;
+    } else if (event.key === 'ArrowRight' || event.key === 'd' || event.key === 'D') {
+        ninja.movingRight = false;
+    }
+});
 
 // assets
 function drawPlatform() {
