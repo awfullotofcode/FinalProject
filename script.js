@@ -189,7 +189,7 @@ function draw() {
 function gameLoop() {
 
     update();
-
+    checkCollision();
 
     draw();
 
