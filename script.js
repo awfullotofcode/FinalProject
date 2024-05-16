@@ -95,6 +95,9 @@ function checkCollision() {
     ninja.feet = ninja.y + ninja.height;
     ninja.hCenter = ninja.x + (ninja.width / 2);
 
+    // Once the ninja reaches the floor, stop its vertical movement
+    ninja.y = gameEnvironment.floorY - ninja.height;
+    ninja.canJump = true;
     // CHATGPT HELP FINISH THIS FUNCTION
     // CHECK IF NINJA IS WITHIN RANGE ()
     if (ninja.feet <= firstPlat.y && ninja.hCenter > firstPlat.x && ninja.hCenter < (firstPlat.x + firstPlat.width)) {
@@ -143,9 +146,8 @@ function movement() {
         if (ninja.y < ninja.jumpStart - ninja.height) {
             ninja.y += gameProperties.gravity;
         } else {
-            // Once the ninja reaches the floor, stop its vertical movement
-            ninja.y = gameEnvironment.floorY - ninja.height;
-            ninja.canJump = true;
+            //check collision
+
         }
     }
 }
