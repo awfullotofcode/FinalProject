@@ -140,7 +140,7 @@ function movement() {
         }
     } else {
         // If not jumping, apply gravity until hit floor
-        if (ninja.y < gameEnvironment.floorY - ninja.height) {
+        if (ninja.y < ninja.jumpStart - ninja.height) {
             ninja.y += gameProperties.gravity;
         } else {
             // Once the ninja reaches the floor, stop its vertical movement
