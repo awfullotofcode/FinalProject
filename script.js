@@ -112,7 +112,13 @@ function drawNinja () {
     console.log("Ninja position: x =", ninja.x, ", y =", ninja.y);
 }
 
-
+/* CHATGPT help finish collision function with CONSTRAINTS
+CONSTRAINTS:
+1. in order for ninja to appear on top of platform
+    ninja.y = firstPlat.y + ninja.height
+2. Gravity must be applied to ninja after he has reached his jump height
+    and ONLY UP UNTIL he has finally reached the platform
+3. Ninja will only appear on top of platform after he has finished his jump, meaning he has landed on either floor or platform
 function checkCollision() {
     ninja.feet = ninja.y + ninja.height;
     ninja.hCenter = ninja.x + (ninja.width / 2);
@@ -122,7 +128,7 @@ function checkCollision() {
 
     }
 }
-
+*/
 function boundaries() {
     // left/right bounds
     if (ninja.x < 0) {
