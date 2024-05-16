@@ -97,7 +97,7 @@ function checkCollision() {
 
     if (ninja.jumping && ninja.y <= ninja.jumpStart - ninja.jumpHeight)
         if (ninja.feet < firstPlat.y && ninja.hCenter > firstPlat.x && ninja.hCenter < (firstPlat.x + firstPlat.width)) {
-            ninja.y = firstPlat.y - ninja.height;
+            // help finish chatgpt please
         }
 }
 
