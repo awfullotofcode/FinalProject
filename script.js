@@ -130,7 +130,7 @@ function checkCollision() {
     ninja.feet = ninja.y + ninja.height;
     ninja.left = ninja.x;
     ninja.right = ninja.x + ninja.width;
-    if (!ninja.jumping && ninja.feet < fPlat.y && ninja.left > fPlat.x && ninja.right < (fPlat.x + fPlat.width)) {
+    if (ninja.feet < fPlat.y && ninja.left > fPlat.x && ninja.right < (fPlat.x + fPlat.width)) {
         ninja.y = fPlat.y - ninja.height;
     }
 }
