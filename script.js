@@ -68,7 +68,7 @@ document.addEventListener('keydown', (event) => {
         ninja.direction = 'right'; // Update direction when moving right
     } else if ((event.key === 'ArrowUp' || event.key === 'w' || event.key === 'W' || event.key === ' ') && ninja.canJump) {
         ninja.jumping = true;
-        ninja.jumpStart = ninja.y;
+        ninja.jumpStart = ninja.y + ninja.height;
         ninja.canJump = false;
     }
 
