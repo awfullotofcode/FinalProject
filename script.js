@@ -49,6 +49,12 @@ const gameEnvironment = {
     floorHeight: 10,
 }
 
+const fPlat = {
+    x: 370,
+    y: 354,
+    width: 200,
+    height: 1
+}
 // keyboard movement
 document.addEventListener('keydown', (event) => {
 
@@ -117,6 +123,7 @@ function movement() {
         }
     }
 }
+
 // update game logic
 function update() {
     movement();
@@ -146,6 +153,10 @@ function drawNinja () {
         currentFrameIndex = 0;
     }
 }
+function drawPlat() {
+    ctx.fillStyle = 'red';
+    ctx.fillRect(fPlat.x, fPlat.y, fPlat.width, fPlat.height);
+}
 // draw game
 function draw() {
     // clear canvas
@@ -155,7 +166,7 @@ function draw() {
     ctx.fillStyle = 'grey';
     ctx.fillRect(0, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
     drawNinja();
-
+    drawPlat();
 }
 
 // game loop
