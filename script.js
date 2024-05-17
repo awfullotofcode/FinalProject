@@ -173,7 +173,7 @@ function movement() {
         // If falling, apply gravity until collide
         if (ninja.y < gameEnvironment.floorY - ninja.height) {
             ninja.y += gameProperties.gravity;
-        } else {
+        } else /* if !ninja.y => gameEnvironment.floorY - ninja.height*/{
             // Once the ninja reaches the floor, stop its vertical movement
             ninja.y = gameEnvironment.floorY - ninja.height;
             ninja.canJump = true;
