@@ -6,7 +6,7 @@ const ctx = canvas.getContext('2d');
 const ninjaImages = {
     still: new Image(),
     right: [],
-    left: [],
+    left: []
 }
 // set source for each image
 ninjaImages.still.src = 'ninja-animations/ninja-still.png';
@@ -24,6 +24,7 @@ for (let i = 1; i < 5; i++) {
 
 // game properties
 const gameProperties = {
+    started: false,
     gravity: 9.8
 }
 // ninja properties
@@ -52,12 +53,22 @@ const gameEnvironment = {
     scrollSpeed: 3
 }
 
+/*
 const platform = {
     x: 500,
     y: 310,
     width: 200,
     height: 1
 }
+*/
+const platforms = [
+    { x: 500, y: 310, width: 200, height: 1 },
+    { x: 600, y: 250, width: 150, height: 1 },
+    { x: 1000, y: 250, width: 150, height: 1 },
+    { x: 1500, y: 250, width: 150, height: 1 },
+    { x: 900, y: 250, width: 150, height: 1 },
+    // Add more platform objects as needed
+];
 // keyboard movement
 document.addEventListener('keydown', (event) => {
 
@@ -86,7 +97,9 @@ document.addEventListener('keyup', (event) => {
 
 function drawPlatform() {
     ctx.fillStyle = 'brown';
-    ctx.fillRect(platform.x, platform.y, platform.width, platform.height);
+    platforms.forEach(platform => {
+        ctx.fillRect(platform.x, platform.y, platform.width, platform.height);
+    });
 }
 
 function collisions() {
@@ -105,11 +118,26 @@ function collisions() {
     if (ninja.feet >= gameEnvironment.floorY) { // Ensure ninja cannot go below the floor
         ninja.y = gameEnvironment.floorY - ninja.height;
         ninja.canJump = true;
-    } else if (ninja.feet >= platform.y && ninja.hCenter >= platform.x && ninja.hCenter <= platform.x + platform.width) {
-        ninja.y = platform.y - ninja.height;
-        ninja.canJump = true;
     }
+    platforms.forEach(platform => {
+        if (ninja.feet >= platform.y && ninja.x >= platform.x && (ninja.x + ninja.width) <= platform.x + platform.width) {
+            ninja.y = platform.y - ninja.height;
+            gameProperties.started = true;
+            if (!ninja.jumping && !ninja.canJump) {
+                ninja.canJump = true;
+            }
+        }
 
+    });
+    /*
+    else if (ninja.feet >= platform.y && ninja.hCenter >= platform.x && ninja.hCenter <= platform.x + platform.width) {
+        ninja.y = platform.y - ninja.height;
+        gameProperties.started = true;
+        if (!ninja.jumping && !ninja.canJump) {
+            ninja.canJump = true;
+        }
+    }
+    */
     // Land ninja on platform
     // only when falling down and when (ninja.y + ninja.height = platform.y)
 
@@ -142,10 +170,16 @@ function movement() {
 
     console.log("ninja.jumping", ninja.jumping);
 
-
 }
+
 // update game logic
 function update() {
+    if (gameProperties.started) {
+        // Scroll all platforms to the left
+        platforms.forEach(platform => {
+            platform.x -= gameEnvironment.scrollSpeed;
+        });
+    }
     movement();
     collisions();
     document.getElementById('ninjax').textContent = 'ninja x: ' + ninja.x;
@@ -154,6 +188,7 @@ function update() {
     document.getElementById('ninjacanjump').textContent = 'ninja can jump: ' + ninja.canJump;
     document.getElementById('ninjahcenter').textContent = 'ninja hCenter: ' + ninja.hCenter;
     document.getElementById('ninjafeet').textContent = 'ninja feet y: ' + ninja.feet;
+    document.getElementById('gamestarted').textContent = 'Game started: ' + gameProperties.started;
 }
 
 let currentFrameIndex = 0;
