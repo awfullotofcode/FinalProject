@@ -28,7 +28,7 @@ const gameProperties = {
 }
 // ninja properties
 const ninja = {
-    x: canvas.width / 2 - 25, // Initial x position at the center of the canvas
+    x: 0, // Initial x position at the center of the canvas
     y: canvas.height - 60, // Initial y position relative to canvas height
     width: 50,
     height: 50,
