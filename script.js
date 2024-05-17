@@ -28,27 +28,36 @@ const gameProperties = {
 }
 // ninja properties
 const ninja = {
-    x: canvas.width / 2 - 25, // Initial x position at the center of the canvas
-    y: canvas.height - 60, // Initial y position relative to canvas height
+    x: 150, // Initial x
+    y: canvas.height - 60, // Initial y
     width: 50,
     height: 50,
     //movement
     speed: 5, // movement speed
     canJump: true,
     jumpStart: 0,
-    jumpHeight: 120, // maximum height of the jump
+    jumpHeight: 150, // maximum height of the jump
     jumpSpeed: 10, // speed of the jump
     jumping: false, // jumping state
     direction: 'still', // initial direction
     movingLeft: false,
-    movingRight: false,
+    movingRight: false
 }
+
+
 // game environment properties
 const gameEnvironment = {
     floorY: canvas.height-10,
     floorHeight: 10,
+    scrollSpeed: 3
 }
 
+const platform = {
+    x: 500,
+    y: 310,
+    width: 200,
+    height: 1
+}
 // keyboard movement
 document.addEventListener('keydown', (event) => {
 
@@ -75,52 +84,76 @@ document.addEventListener('keyup', (event) => {
     }
 });
 
-function boundaries() {
+function drawPlatform() {
+    ctx.fillStyle = 'brown';
+    ctx.fillRect(platform.x, platform.y, platform.width, platform.height);
+}
+
+function collisions() {
+    ninja.hCenter = ninja.x + (ninja.width / 2);
+    ninja.feet = ninja.y + ninja.height;
+    console.log("ninja center:", ninja.hCenter, "ninja feet:", ninja.feet);
     // left/right bounds
     if (ninja.x < 0) {
         ninja.x = 0;
     } else if (ninja.x + ninja.width > canvas.width) {
         ninja.x = canvas.width - ninja.width;
     }
-    // up/down bounds
-    if (ninja.y < 0) { // Ensure ninja cannot go above the top of the canvas
-        ninja.y = 0;
-    } else if (ninja.y + ninja.height > gameEnvironment.floorY) { // Ensure ninja cannot go below the floor
+
+
+    // down bounds
+    if (ninja.feet >= gameEnvironment.floorY) { // Ensure ninja cannot go below the floor
         ninja.y = gameEnvironment.floorY - ninja.height;
+        ninja.canJump = true;
+    } else if (ninja.feet >= platform.y && ninja.hCenter >= platform.x && ninja.hCenter <= platform.x + platform.width) {
+        ninja.y = platform.y - ninja.height;
+        ninja.canJump = true;
     }
+
+    // Land ninja on platform
+    // only when falling down and when (ninja.y + ninja.height = platform.y)
+
+
 }
 
 function movement() {
+    // gravity
+    // scrolling
+
+
     // movement
     if (ninja.movingLeft) {
         ninja.x -= ninja.speed;
     }
-    if (ninja.movingRight) {
+    else if (ninja.movingRight) {
         ninja.x += ninja.speed;
     }
-    // Check if ninja is currently jumping
+
+    // jump
     if (ninja.jumping) {
         ninja.y -= ninja.jumpSpeed;
-
-        // Check if the ninja has reached the maximum jump height
+        ninja.collides = false;
         if (ninja.y <= ninja.jumpStart - ninja.jumpHeight) {
             ninja.jumping = false;
         }
     } else {
-        // If not jumping, apply gravity until hit floor
-        if (ninja.y < gameEnvironment.floorY - ninja.height) {
-            ninja.y += gameProperties.gravity;
-        } else {
-            // Once the ninja reaches the floor, stop its vertical movement
-            ninja.y = gameEnvironment.floorY - ninja.height;
-            ninja.canJump = true;
-        }
+        ninja.y += gameProperties.gravity;
     }
+
+    console.log("ninja.jumping", ninja.jumping);
+
+
 }
 // update game logic
 function update() {
     movement();
-    boundaries();
+    collisions();
+    document.getElementById('ninjax').textContent = 'ninja x: ' + ninja.x;
+    document.getElementById('ninjay').textContent = 'ninja y: ' + ninja.y;
+    document.getElementById('ninjajumping').textContent = 'ninja jumping: ' + ninja.jumping;
+    document.getElementById('ninjacanjump').textContent = 'ninja can jump: ' + ninja.canJump;
+    document.getElementById('ninjahcenter').textContent = 'ninja hCenter: ' + ninja.hCenter;
+    document.getElementById('ninjafeet').textContent = 'ninja feet y: ' + ninja.feet;
 }
 
 let currentFrameIndex = 0;
@@ -138,6 +171,8 @@ function drawNinja () {
 
     // Draw the current ninja image at the current position
     ctx.drawImage(currentNinjaImg, ninja.x, ninja.y, ninja.width, ninja.height);
+    ctx.strokeStyle = 'red';
+    ctx.strokeRect(ninja.x, ninja.y, ninja.width, ninja.height);
 
     // Increment the frame index for the next iteration
     currentFrameIndex++;
@@ -155,6 +190,7 @@ function draw() {
     ctx.fillStyle = 'grey';
     ctx.fillRect(0, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
     drawNinja();
+    drawPlatform();
 
 }
 
