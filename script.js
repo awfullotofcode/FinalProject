@@ -44,7 +44,6 @@ const ninja = {
     direction: 'still', // initial direction
     movingLeft: false,
     movingRight: false,
-    collides: true
 }
 // game environment properties
 const gameEnvironment = {
