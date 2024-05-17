@@ -51,7 +51,7 @@ const gameEnvironment = {
 
 const fPlat = {
     x: 370,
-    y: 354,
+    y: 340,
     width: 200,
     height: 1
 }
@@ -122,10 +122,11 @@ function movement() {
             ninja.canJump = true;
         }
     }
+    console.log("ninja x:", ninja.x,"y:", ninja.y)
 }
 
 function checkCollision() {
-    
+
 }
 // update game logic
 function update() {
