@@ -135,10 +135,10 @@ function checkCollision() {
 
     if (ninja.feet = firstPlat.y && ninja.hCenter > firstPlat.x &&
         ninja.hCenter < (firstPlat.x + firstPlat.width)) {
-            return collides
+            return collides;
     }
 
-    return collide
+    return collide;
 }
 
 function boundaries() {
