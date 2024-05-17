@@ -128,13 +128,17 @@ function draw() {
 }
 
 function checkCollision() {
+    let collides = true;
+
     ninja.feet = ninja.y + ninja.height;
     ninja.hCenter = ninja.x + (ninja.width / 2);
 
     if (ninja.feet < firstPlat.y && ninja.hCenter > firstPlat.x &&
         ninja.hCenter < (firstPlat.x + firstPlat.width)) {
-            ninja.y = firstPlat.y - ninja.height;
+            
     }
+
+    return collide
 }
 
 function boundaries() {
@@ -171,9 +175,9 @@ function movement() {
     } else {
         // check collision
         // If falling, apply gravity until collide
-        if (!ninja.canJump && ) {
+        if (ninja.y < gameEnvironment.floorY - ninja.height /* || !checkCollision */) {
             ninja.y += gameProperties.gravity;
-        } else /* if !ninja.y => gameEnvironment.floorY - */{
+        } else /* if !ninja.y => gameEnvironment.floorY -*/{
             // Once the ninja reaches the floor, stop its vertical movement
             ninja.y = gameEnvironment.floorY - ninja.height;
             ninja.canJump = true;
