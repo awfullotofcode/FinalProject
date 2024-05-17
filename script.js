@@ -43,7 +43,8 @@ const ninja = {
     jumping: false, // jumping state
     direction: 'still', // initial direction
     movingLeft: false,
-    movingRight: false
+    movingRight: false,
+    collides: true
 }
 // game environment properties
 const gameEnvironment = {
@@ -70,6 +71,7 @@ document.addEventListener('keydown', (event) => {
         ninja.jumping = true;
         ninja.jumpStart = ninja.y;
         ninja.canJump = false;
+        ninja.collides = false;
     }
 
 });
