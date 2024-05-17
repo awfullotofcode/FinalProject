@@ -71,7 +71,6 @@ document.addEventListener('keydown', (event) => {
         ninja.jumping = true;
         ninja.jumpStart = ninja.y;
         ninja.canJump = false;
-        ninja.collides = false;
     }
 
 });
