@@ -28,7 +28,7 @@ const gameProperties = {
 }
 // ninja properties
 const ninja = {
-    x: 0, // Initial x position at the center of the canvas
+    x: canvas.width / 2 - 25, // Initial x position at the center of the canvas
     y: canvas.height - 60, // Initial y position relative to canvas height
     width: 50,
     height: 50,
@@ -49,12 +49,6 @@ const gameEnvironment = {
     floorHeight: 10,
 }
 
-const fPlat = {
-    x: 370,
-    y: 340,
-    width: 200,
-    height: 1
-}
 // keyboard movement
 document.addEventListener('keydown', (event) => {
 
@@ -97,7 +91,6 @@ function boundaries() {
 }
 
 function movement() {
-    ninja.y += gameProperties.gravity;
     // movement
     if (ninja.movingLeft) {
         ninja.x -= ninja.speed;
@@ -105,24 +98,29 @@ function movement() {
     if (ninja.movingRight) {
         ninja.x += ninja.speed;
     }
+    // Check if ninja is currently jumping
+    if (ninja.jumping) {
+        ninja.y -= ninja.jumpSpeed;
 
-    console.log("ninja x:", ninja.x,"y:", ninja.y)
-}
-
-function checkCollision() {
-    // quick reference for ninja
-    ninja.feet = ninja.y + ninja.height;
-    ninja.left = ninja.x;
-    ninja.right = ninja.x + ninja.width;
-    if (ninja.feet < fPlat.y && ninja.left > fPlat.x && ninja.right < (fPlat.x + fPlat.width)) {
-        ninja.y = fPlat.y - ninja.height;
+        // Check if the ninja has reached the maximum jump height
+        if (ninja.y <= ninja.jumpStart - ninja.jumpHeight) {
+            ninja.jumping = false;
+        }
+    } else {
+        // If not jumping, apply gravity until hit floor
+        if (ninja.y < gameEnvironment.floorY - ninja.height) {
+            ninja.y += gameProperties.gravity;
+        } else {
+            // Once the ninja reaches the floor, stop its vertical movement
+            ninja.y = gameEnvironment.floorY - ninja.height;
+            ninja.canJump = true;
+        }
     }
 }
 // update game logic
 function update() {
     movement();
     boundaries();
-    checkCollision();
 }
 
 let currentFrameIndex = 0;
@@ -148,10 +146,6 @@ function drawNinja () {
         currentFrameIndex = 0;
     }
 }
-function drawPlat() {
-    ctx.fillStyle = 'red';
-    ctx.fillRect(fPlat.x, fPlat.y, fPlat.width, fPlat.height);
-}
 // draw game
 function draw() {
     // clear canvas
@@ -161,7 +155,7 @@ function draw() {
     ctx.fillStyle = 'grey';
     ctx.fillRect(0, gameEnvironment.floorY, canvas.width, gameEnvironment.floorHeight);
     drawNinja();
-    drawPlat();
+
 }
 
 // game loop
@@ -175,3 +169,4 @@ function gameLoop() {
 }
 
 requestAnimationFrame(gameLoop);
+
