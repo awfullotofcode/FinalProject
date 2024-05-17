@@ -172,7 +172,7 @@ function movement() {
         }
     } else {
         // check collision
-        // If not jumping, apply gravity until collide
+        // If falling, apply gravity until collide
         if (ninja.y < gameEnvironment.floorY - ninja.height) {
             ninja.y += gameProperties.gravity;
         } else {
