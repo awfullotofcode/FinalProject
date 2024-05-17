@@ -97,7 +97,7 @@ function boundaries() {
 }
 
 function movement() {
-    
+    ninja.y += gameProperties.gravity;
     // movement
     if (ninja.movingLeft) {
         ninja.x -= ninja.speed;
