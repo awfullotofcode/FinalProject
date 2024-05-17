@@ -193,7 +193,7 @@ function gameLoop() {
 
     update();
     draw();
-
+    checkCollision();
     requestAnimationFrame(gameLoop);
 }
 
