@@ -131,7 +131,6 @@ function checkCollision() {
 
     ninja.feet = ninja.y + ninja.height;
     ninja.hCenter = ninja.x + (ninja.width / 2);
-
     if (ninja.feet < firstPlat.y && ninja.hCenter > firstPlat.x &&
         ninja.hCenter < (firstPlat.x + firstPlat.width)) {
             ninja.y = firstPlat.y - ninja.height;
