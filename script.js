@@ -126,7 +126,13 @@ function movement() {
 }
 
 function checkCollision() {
+    // quick reference for ninja
+    ninja.feet = ninja.y + ninja.height;
+    ninja.left = x;
+    ninja.right = x + ninja.width;
+    if (!ninja.jumping && ninja.feet > ) {
 
+    }
 }
 // update game logic
 function update() {
