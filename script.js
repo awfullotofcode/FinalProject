@@ -97,6 +97,7 @@ function boundaries() {
 }
 
 function movement() {
+    
     // movement
     if (ninja.movingLeft) {
         ninja.x -= ninja.speed;
@@ -104,24 +105,7 @@ function movement() {
     if (ninja.movingRight) {
         ninja.x += ninja.speed;
     }
-    // Check if ninja is currently jumping
-    if (ninja.jumping) {
-        ninja.y -= ninja.jumpSpeed;
 
-        // Check if the ninja has reached the maximum jump height
-        if (ninja.y <= ninja.jumpStart - ninja.jumpHeight) {
-            ninja.jumping = false;
-        }
-    } else {
-        // If not jumping, apply gravity until hit floor
-        if (ninja.y < gameEnvironment.floorY - ninja.height) {
-            ninja.y += gameProperties.gravity;
-        } else {
-            // Once the ninja reaches the floor, stop its vertical movement
-            ninja.y = gameEnvironment.floorY - ninja.height;
-            ninja.canJump = true;
-        }
-    }
     console.log("ninja x:", ninja.x,"y:", ninja.y)
 }
 
