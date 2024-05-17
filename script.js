@@ -69,7 +69,7 @@ document.addEventListener('keydown', (event) => {
         ninja.direction = 'right'; // Update direction when moving right
     } else if ((event.key === 'ArrowUp' || event.key === 'w' || event.key === 'W' || event.key === ' ') && ninja.canJump) {
         ninja.jumping = true;
-        ninja.jumpStart = ninja.y + ninja.height;
+        ninja.jumpStart = ninja.y;
         ninja.canJump = false;
         ninja.collides = false;
     }
@@ -173,7 +173,7 @@ function movement() {
     } else {
         // check collision
         // If not jumping, apply gravity until collide
-        if (ninja.y <  - ninja.height) {
+        if (ninja.y < gameEnvironment.floorY - ninja.height) {
             ninja.y += gameProperties.gravity;
         } else {
             // Once the ninja reaches the floor, stop its vertical movement
