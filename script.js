@@ -124,6 +124,9 @@ function movement() {
     }
 }
 
+function checkCollision() {
+    
+}
 // update game logic
 function update() {
     movement();
