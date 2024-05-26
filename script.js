@@ -37,7 +37,7 @@ const ninja = {
     speed: 5, // movement speed
     canJump: true,
     jumpStart: 0,
-    jumpHeight: 150, // maximum height of the jump
+    jumpHeight: 120, // maximum height of the jump
     jumpSpeed: 10, // speed of the jump
     jumping: false, // jumping state
     direction: 'still', // initial direction
@@ -62,11 +62,11 @@ const platform = {
 }
 */
 const platforms = [
-    { x: 500, y: 310, width: 200, height: 1 },
-    { x: 600, y: 250, width: 150, height: 1 },
-    { x: 1000, y: 250, width: 150, height: 1 },
-    { x: 1500, y: 250, width: 150, height: 1 },
-    { x: 900, y: 250, width: 150, height: 1 },
+    { x: 500, y: 310, width: 100, height: 1 },
+    { x: 700, y: 250, width: 100, height: 1 },
+    { x: 1000, y: 250, width: 100, height: 1 },
+    { x: 1200, y: 250, width: 100, height: 1 },
+    { x: 1500, y: 250, width: 100, height: 1 },
     // Add more platform objects as needed
 ];
 // keyboard movement
@@ -178,8 +178,12 @@ function update() {
         // Scroll all platforms to the left
         platforms.forEach(platform => {
             platform.x -= gameEnvironment.scrollSpeed;
+            if (platform.x + platform.width < 0) {
+                platform.x = canvas.width + platform.width
+            }
         });
     }
+
     movement();
     collisions();
     document.getElementById('ninjax').textContent = 'ninja x: ' + ninja.x;
